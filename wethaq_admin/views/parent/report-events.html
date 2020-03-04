@@ -1,0 +1,96 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row wrapper white-bg page-heading">
+        <div class="col-sm-3">
+              <h2>List Events</h2>
+        </div>
+        <!--<div class="col-sm-3">-->
+            <!--<label>From</label>-->
+            <!--<input type="text" id="datepicker" class="cursor start-picker" readonly>-->
+        <!--</div>-->
+
+        <!--<div class="col-sm-3">-->
+            <!--<label>To</label>-->
+            <!--<input type="text" id="datepicker1" class="cursor start-picker" readonly>-->
+        <!--</div>-->
+        <!--<div class="col-sm-2">-->
+            <!--<button type="button" value="Go" class="go-btn" ng-click="gobtn()">Go</button>-->
+        <!--</div>-->
+
+
+        <div class="col-md-10 col-sm-10  col-xs-5">
+            <div class="col-sm-6">
+                <label>Created From</label>
+                <input type="text" id="datepicker" class="cursor start-picker" readonly>
+            </div>
+
+            <div class="col-sm-6">
+                <label>Started From</label>
+                <input type="text" id="datepicker2" class="cursor start-picker" readonly>
+            </div>
+
+            <div class="col-sm-6">
+                <label>Created To</label>
+                <input type="text" id="datepicker1" class="cursor start-picker" readonly>
+            </div>
+
+
+            <div class="col-sm-6">
+                <label>Started To</label>
+                <input type="text" id="datepicker3" class="cursor start-picker" readonly>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" value="Go" class="go-btn" ng-click="gobtn()">Go</button>
+            <button type="button" value="Go" class="go-btn" ng-click="reset()">Reset</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-lg-12" dw-loading="ImageLoad">
+            <div class="ibox-content wrapper wrapper-content animated fadeInUp">
+                <button class="ben btn-primary" ng-click="alsqldata()">Export</button>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Start At</th>
+                                <th>End At</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="data in ListEvents">
+                                <td>{{$index+1}}</td>
+                                <td><img ng-src="{{data.imageUrl || 'img/no-image-available.jpg'}}" class="profile-imgModal"></td>
+                                <td>{{data.createdBy.name}}</td>
+                                <td>{{data.createdBy.email}}</td>
+                                <td>{{data.startAt | date}}</td>
+                                <td>{{data.endAt | date}}</td>
+                                <!--<td><a ng-click="deleteImage(data._id)"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 " style="padding-top:22px; ">
+                        <span>{{resultPaginationCount}}</span>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
+                        <ul uib-pagination total-items="listOptions.total" ng-model="listOptions.pageNo
+                                            " items-per-page="listOptions.limit " ng-change="pageChanged() " max-size="listOptions.maxSize "
+                            boundary-link-numbers="true " boundary-links="true
+                                            " force-ellipses="false " class="pull-right "></ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

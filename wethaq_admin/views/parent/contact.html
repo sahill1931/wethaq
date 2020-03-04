@@ -1,0 +1,36 @@
+<div ng-if="userStorage.view == true">
+    <div dw-loading="UsersLoad">
+            <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="marginB30">
+    <div class="row">
+        <div class="col-md-12"><h2>List Feedback</h2></div>
+        <p class="alert alert-info">Hover on card to view full message </p>
+    </div>
+    </div>
+        <h2 class="text-center text-success" ng-if="ListUsers.length == 0">No Feedbacks currently</h2>
+                    <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="data in ListUsers">
+                    <div class="widget blue-bg feedback-list">
+                        <div class="row">
+                            <div title="{{data.message}}" class="col-xs-12 text-center">
+                                <h3 class="disSize font-bold business-data faIconcolor"> {{data.name}} </h3>
+                                <hr>
+                                <span class="font-bold business-data">{{data.phoneNo}}</span>
+                                <span class="font-bold business-data">{{data.email}}</span>
+                                <span class="font-bold business-data">{{data.message}}</span>
+                                <span class="font-bold business-data" ng-if="!!data.timeStamp">On: {{(data.timeStamp | date :  "MMMM d, y")}}</span>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="ListUsers.length < ListUsersCount && ListUsers.length!=0">
+                    <div class="col-md-12">
+                        <button class="pull-right btn btn-primary" type="button" style="margin-bottom: 20px;" ng-click="listUsersFunction(newLimit3)">More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

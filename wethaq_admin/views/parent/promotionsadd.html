@@ -1,0 +1,242 @@
+<div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="marginB30">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-7"><h2>Details</h2></div>
+                <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ui-sref="parent.promotions">List promotions</button></div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" dw-loading="AddCategoryLoad">
+                <div class="ibox float-e-margins">
+
+                    <div dw-loading="AddTemplateLoad">
+                        <form novalidate name="myForm" ng-submit="addTemplateSubmit(myForm.$valid)"
+                              enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>Image*</h4>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <img height="100" ng-if="type!='edit'"
+                                                 ngf-thumbnail="picFileTemplate" >
+
+                                            <img height="100" ng-if="type=='edit'" ng-src={{addTemplate.adImageURL.thumbnail}} >
+
+
+                                            <!--<img ng-show="myForm.file.$valid" ngf-thumbnail="picFileTemplate" class="thumbnail">-->
+                                        </div>
+                                    </div>
+                                    <div dw-loading="fileadd" class="row">
+                                        <div class="fileUpload btn btn-primary dim">
+                                            <i class="fa fa-upload"></i>
+                                            &nbsp;&nbsp;<span class="bold">Upload</span>
+                                            <input type="file" ngf-select="addTemplateImageFunction(picFileTemplate)"
+                                                   ng-model="picFileTemplate" name="file"
+                                                   accept="image/*" ngf-max-size="40MB" ng-required="type=='add'"
+                                                   ngf-model-invalid="errorFile" class="upload">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--<div ng-dropdown-multiselect="" options="example14data" selected-model="example14model" checkboxes="true" extra-settings="example14settings"></div>-->
+                                <div class="col-sm-4">
+                                    <label>Advertiser Url*</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplateName">
+                                            <input type="text" name="TemplateName"
+                                                   class="form-control" ng-model="addTemplate.url" required>
+                                            <div class="error"
+                                                 ng-show="TemplateName.$submitted || TemplateName.TemplateName.$dirty && TemplateName.TemplateName.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.pattern">
+                                                    Invalid url
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <!--<div class="col-sm-6">-->
+                                    <!--<label>Template Price*</label>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<ng-form name="TemplatePrice">-->
+                                            <!--<input type="text" name="TemplatePrice"-->
+                                                   <!--class="form-control" ng-model="addTemplate.TemplatePrice" required>-->
+                                            <!--<div class="error"-->
+                                                 <!--ng-show="TemplatePrice.$submitted || TemplatePrice.TemplatePrice.$dirty && TemplatePrice.TemplatePrice.$invalid">-->
+                                                <!--<small class="error text-danger"-->
+                                                       <!--ng-show="TemplatePrice.TemplatePrice.$error.required">-->
+                                                    <!--Field is required.-->
+                                                <!--</small>-->
+                                            <!--</div>-->
+                                        <!--</ng-form>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            </div>
+                            <br>
+
+                            <hr>
+                            Filter by
+                            <br>  <br>  <br>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Category</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplateName">
+                                            <select name="TemplateName" placeholder="Select Category"
+                                                    class="form-control chosen-select"
+                                                    ng-model="addTemplate.categoryId"
+                                            >
+                                                <option value='' selected>All</option>
+                                                <option value="{{data._id}}" ng-repeat="data in ListCategory">
+                                                    {{data.name[0]}} ({{data.name[1]}})
+                                                </option>
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="TemplateName.$submitted || TemplateName.TemplateName.$dirty && TemplateName.TemplateName.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Gender</label>
+                                    <div class="form-group">
+                                        <ng-form name="gender">
+                                            <select name="gender" placeholder="Select gender"
+                                                    class="form-control chosen-select"
+                                                    ng-model="addTemplate.gender"
+                                                    >
+                                                <option value='' selected>All</option>
+                                                <option value="Male" >Male</option>
+                                                <option value="Female" >Female</option>
+
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="gender.$submitted || gender.TemplateName.$dirty && gender.gender.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="gender.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                            Age
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label> Start limit</label>
+                                    <div class="form-group">
+                                        <ng-form name="startage">
+                                            <select name="startage" placeholder="Select age"
+                                                    class="form-control chosen-select"
+                                                    ng-model="addTemplate.startAge"
+                                                     >
+                                                <option value="" disabled selected>Select age  (in years)</option>
+                                                <option value="{{data}}" ng-repeat="data in getagearray()">
+                                               {{data}}
+                                                </option>
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="startage.$submitted || startage.TemplateName.$dirty && startage.startage.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="startage.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label> End limit</label>
+                                    <div class="form-group">
+                                        <ng-form name="endage">
+                                            <select name="endage" placeholder="Select age"
+                                                    class="form-control chosen-select"
+                                                    ng-model="addTemplate.endAge"
+                                                   >
+                                                <option value="" disabled selected>Select age (in years)</option>
+                                                <option value="{{data}}" ng-repeat="data in getagearray()">
+                                                    {{data}}
+                                                </option>
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="endage.$submitted || endage.TemplateName.$dirty && endage.endage.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="endage.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label> Location</label>
+                                    <div class="form-group">
+                                        <ng-form name="location">
+                                            <input type="text" id="searchTextField" placeholder="Location" class="form-control" autocomplete="on" runat="server" name="location" required />
+                                            <input type="hidden" id="city2" name="city2" />
+
+                                            <!-- <div class="col-sm-12">
+                                                <div class="error" ng-show="signup2Form.$submitted || signup2Form.location.$dirty && signup2Form.location.$invalid">
+                                                    <small class="error text-danger" ng-show="signup2Form.location.$error.required">
+                                                        Location is required.
+                                                    </small>
+                                                </div>
+                                            </div> -->
+                                        </ng-form>
+
+                                        <div class="top-m-10 display-none">
+                                            <label>Latitude</label>
+                                            <input type="hidden" id="cityLat" name="cityLat" />
+                                        </div>
+            
+                                        <div class="top-m-10 display-none">
+                                            <label>Longitude</label>
+                                            <input type="hidden" id="cityLng" name="cityLng" />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myForm.$invalid">
+                                        <!--<button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit">-->
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,182 @@
+<style type="text/css">
+    canvas#line1,
+    canvas#line {
+        /*height: 354px !important;*/
+        width: auto !important;
+    }
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <!--<div class="col-sm-12">-->
+            <!--<center><h2>Welcome to the Wethaq Admin Panel</h2></center><br><br>-->
+        <!--</div>-->
+        <div dw-loading="DashboardLoad">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a ui-sref="parent.categories">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-4 text-center">
+                                <i class="fa fa-tags faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span class="disSize"> Categories </span>
+
+                                <h2 class="font-bold faIconcolor">{{DasboardCount.categoryCount}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a ui-sref="parent.package">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-4 text-center">
+                                <i class="fa fa-money faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span class="disSize"> Packages </span>
+
+                                <h2 class="font-bold faIconcolor">{{DasboardCount.pricingCount}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a ui-sref="parent.users">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-users faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span class="disSize"> Users </span>
+
+                                <h2 class="font-bold faIconcolor">{{DasboardCount.userCount}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a ui-sref="parent.templates">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-columns faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span class="disSize"> Templates </span>
+
+                                <h2 class="font-bold faIconcolor">{{DasboardCount.templateCount}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <a ui-sref="parent.events">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <i class="fa fa-calendar faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-10">
+                                <div class="col-xs-4 text-right">
+                                    <span class="disSize">Total Event</span>
+                                    <h2 class="font-bold faIconcolor">{{DasboardCount.eventCount}}</h2>
+                                </div>
+                                <div class="col-xs-4 text-right">
+                                    <span class="disSize">Upcoming Event</span>
+                                    <h2 class="font-bold faIconcolor">{{DasboardCount.upcomingEventCount}}</h2>
+                                </div>
+                                <div class="col-xs-4 text-right">
+                                    <span class="disSize">Ongoing Event</span>
+                                    <h2 class="font-bold faIconcolor">{{DasboardCount.ongoingEventCount}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a ui-sref="parent.gaurds">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-id-badge faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span class="disSize"> Guards </span>
+
+                                <h2 class="font-bold faIconcolor">{{DasboardCount.guardCount}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+           <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a ui-sref="parent.templates">
+                    <div class="widget blue-bg dashboard-list">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-paper-plane faIcon fa-3x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span class="disSize"> Requests </span>
+
+                                <h2 class="font-bold faIconcolor">{{DasboardCount.requestCount}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="marginT30">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="form-group">
+            <label>Select Days</label>
+            <select class="form-control" ng-model="days" ng-change="graphDays(days)">
+                <option value="10">10</option>
+                <option value="30">30</option>
+                <option value="90">90</option>
+            </select>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+         <div class="form-group">
+            <label>Select Category</label>
+            <select class="form-control" ng-model="cat" ng-change="getcat(cat)">
+                <option ng-repeat="cat in categories" value="{{cat._id}}">{{cat.name[0]}}</option>
+            </select>
+        </div>
+          </div>
+
+
+    </div>
+     </div>
+
+    <div class="marginT30">
+
+        <div class="row">
+        <div class="col-sm-6">
+            <label>Revenue graph</label>
+            <canvas id="line1" class="chart chart-line" chart-data="data"
+                    chart-labels="labels1" chart-series="series1" chart-options="options" chart-colors="colors"
+                    chart-dataset-override="datasetOverride">
+            </canvas>
+        </div>
+        <div class="col-sm-6">
+            <label>Users/Events</label>
+            <canvas id="line" class="chart chart-line" chart-data="data"
+                    chart-labels="labels" chart-series="series" chart-options="options" chart-colors="colors"
+                    chart-dataset-override="datasetOverride">
+            </canvas>
+        </div></div>
+    </div>
+</div>

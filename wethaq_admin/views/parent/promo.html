@@ -1,0 +1,143 @@
+<div ng-show="addView">
+    
+    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="marginB30">
+    <div class="row">
+
+        <div class="col-md-6 col-sm-6 col-xs-7"> <h2>Add Promo Code</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listCodesButton()">List Promo Codes</button>
+       </div>
+    </div>
+    </div>
+        <div class="row">
+            <div class="col-md-8" dw-loading="AddCodeLoad">
+                <div class="ibox float-e-margins">
+                    <div>
+                        <form novalidate name="myForm" ng-submit="addCodesSubmit(myForm.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Coupon Code*</label>
+                                    <div class="form-group">
+                                        <ng-form name="CouponCode">
+                                            <input type="text" name="CouponCode" class="form-control" ng-model="addCode.couponCode" required>
+                                            <div class="error"
+                                                 ng-show="CouponCode.$submitted || CouponCode.CouponCode.$dirty && CouponCode.CouponCode.$invalid">
+                                                <small class="error text-danger" ng-show="CouponCode.CouponCode.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>Amount Type*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Type">
+                                            <select name="Type" placeholder="Select Amount Type"
+                                                    class="form-control" ng-model="addCode.amountType" required>
+                                                <option value="" disabled selected>Select Type</option>
+                                                <option value="Amount">Amount</option>
+                                                <option value="Percentage">Percentage</option>
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="Type.$submitted || Type.Type.$dirty && Type.Type.$invalid">
+                                                <small class="error text-danger" ng-show="Type.Type.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>Amount*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Amount">
+                                            <input type="text" name="Amount"
+                                                   class="form-control" ng-model="addCode.amount" min="1" numbers-only required>
+                                            <div class="error"
+                                                 ng-show="Amount.$submitted || Amount.Amount.$dirty && Amount.Amount.$invalid">
+                                                <small class="error text-danger" ng-show="Amount.Amount.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>Date Range*</label>
+                                    <div class="form-group">
+                                        <ng-form name="date">
+                                            <input date-range-picker name="date" class="form-control"  type="text" ng-model="datePicker" placeholder="Select Date Range" readonly required />
+                                            <div class="error"
+                                                 ng-show="date.$submitted || date.date.$dirty && date.date.$invalid">
+                                                <small class="error text-danger" ng-show="date.date.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>SMS</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Send Sms
+                                            <input type="checkbox" ng-model="addCode.SMS">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myForm.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="listView" ng-if="promoStorage.view == false">
+    <h2 class="text-center">You Don't Have Access</h2>
+</div>
+<div ng-show="listView" ng-if="promoStorage.view == true">
+
+
+
+        <div  dw-loading="CodeLoad">
+            <div class="wrapper wrapper-content animated fadeInUp">
+
+            <div class="marginB30">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>List Promo Codes</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5"><button ng-if="promoStorage.add == true" class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="addCodesButton()">Add Promo Code</button></div>
+    </div>
+    </div>
+            <div class="row">
+                <h2 class="text-center text-success" ng-if="ListCode.length == 0">No Promo Code currently</h2>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="data in ListCode">
+                    <div class="widget blue-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h2 class="font-bold business-data" style="color: #000000cc;">{{data.couponCode}}</h2>
+                                <h3 class="font-bold business-data text-success">Amount: {{data.amount}}</h3>
+                                <h4 class="font-bold business-data" style="color: #000000cc;">Start At</h4>
+                                <span class="font-bold business-data">{{data.startAt  | date :  "MMMM d, y (HH:mm a)"}}</span>
+                                <h4 class="font-bold business-data" style="color: #000000cc;">End At</h4>
+                                <span class="font-bold business-data">{{data.endAt  | date :  "MMMM d, y (HH:mm a)"}}</span>
+                                <h4 class="font-bold business-data" style="color: #000000cc;">Used</h4>
+                                <span class="font-bold business-data">{{data.usedBy.length}}</span>
+                                <div class="col-xs-12 text-center">
+                                <hr>
+                                <span>
+                                    <a ng-if="promoStorage.delete == true" ng-click="deleteCode(data._id)" class="text-danger">Delete</a>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

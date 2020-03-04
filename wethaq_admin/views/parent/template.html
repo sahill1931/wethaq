@@ -1,0 +1,502 @@
+<style type="text/css">
+    .btn-default {
+        background: none !important;
+    }
+
+    .btn-default:hover {
+        background: none !important;
+    }
+</style>
+<div ng-show="editView">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="marginB30">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-7"><h2>Edit Template</h2></div>
+                <div class="col-md-6 col-sm-6 col-xs-5">
+                    <button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;"
+                            ng-click="listTemplateButton()">List Templates
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" dw-loading="EditTemplateLoad">
+                <div class="ibox float-e-margins">
+
+                    <div>
+                        <form novalidate name="editForm" ng-submit="editTemplateSubmit(editForm.$valid)"
+                              enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Template Category*</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplateName">
+                                            <select name="TemplateName" placeholder="Select Category"
+                                                    class="form-control chosen-select" ng-model="edit.TemplateCategory"
+                                                    ng-disabled="ListCategory.length == 0" required>
+                                                <option value="" disabled selected>Select Category</option>
+                                                <option value="{{data._id}}" ng-repeat="data in ListCategory">
+                                                    {{data.name[0]}} ({{data.name[1]}})
+                                                </option>
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="TemplateName.$submitted || TemplateName.TemplateName.$dirty && TemplateName.TemplateName.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Template Name*</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplateName">
+                                            <input type="text" name="TemplateName"
+                                                   class="form-control" ng-model="edit.TemplateName" required>
+                                            <div class="error"
+                                                 ng-show="TemplateName.$submitted || TemplateName.TemplateName.$dirty && TemplateName.TemplateName.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label>Template Price*</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplatePrice">
+                                            <input type="text" name="TemplatePrice"
+                                                   class="form-control" ng-model="edit.TemplatePrice" required>
+                                            <div class="error"
+                                                 ng-show="TemplatePrice.$submitted || TemplatePrice.TemplatePrice.$dirty && TemplatePrice.TemplatePrice.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplatePrice.TemplatePrice.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label>Custom* </label>
+                                    <div class="form-group">
+                                        <ng-form name="Custom">
+                                            <select class="form-control" ng-change="selectCustom(edit)" ng-model="edit.Custom">
+                                                <option value="true">true</option>
+                                                <option value="false">false</option>
+                                            </select>
+                                        </ng-form>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h4>Template Image*</h4>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <img ng-show="picFileTemplateEdit != undefined || picFileTemplateEdit != null"
+                                                 ngf-thumbnail="picFileTemplateEdit" class="thumbnail">
+
+                                            <!--<img ng-show="editForm.file.$valid" ngf-thumbnail="picFileTemplateEdit" class="thumbnail">-->
+                                        </div>
+                                    </div>
+                                    <div dw-loading="fileadd" class="row">
+                                        <div class="fileUpload btn btn-primary dim">
+                                            <i class="fa fa-upload"></i>
+                                            &nbsp;&nbsp;<span class="bold">Upload</span>
+                                            <input type="file"
+                                                   ngf-select="addTemplateImageEditFunction(picFileTemplateEdit)"
+                                                   ng-model="picFileTemplateEdit" name="file"
+                                                   accept="image/*" ngf-max-size="40MB" required
+                                                   ngf-model-invalid="errorFile" class="upload">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Template Content*</label>
+                                    <div class="form-group">
+                                        <ng-form name="htmlContent">
+                                    <textarea name="htmlContent" class="form-control" ng-model="edit.htmlContent"
+                                              style="width: 100%;min-height: 300px" required></textarea>
+                                            <div class="error"
+                                                 ng-show="htmlContent.$submitted || htmlContent.htmlContent.$dirty && htmlContent.htmlContent.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="htmlContent.htmlContent.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs shadow" type="button"
+                                            ng-click="checkPreview(edit.htmlContent)"
+                                            ng-disabled="edit.htmlContent == '' || edit.htmlContent == undefined">
+                                        <strong>Preview</strong>
+                                    </button>
+                                    <!--<h2 class="text-center text-success font-bold" ng-if="edit.htmlContent != undefined">Preview</h2>-->
+                                    <!--<div class="marginB30" ng-if="edit.htmlContent != undefined" ng-bind-html="edit.htmlContent"></div>-->
+                                    <!--<div text-angular ng-model="addTemplate.htmlContent"></div>-->
+                                    <label class="cust-radio">New
+                                        <input type="radio" name="image" value="new" ng-model="imagecheck"
+                                               ng-click="listNewImagesFunction()">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-radio">Existing
+                                        <input type="radio" name="image" value="existing" ng-model="imagecheck"
+                                               ng-click="listImagesFunction()">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+
+                                    <label class="cust-radio">Private
+                                        <input type="radio" name="image1" value="false" ng-model="privacy">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-radio">Public
+                                        <input type="radio" name="image1" value="true" ng-model="privacy">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <div class="row" ng-if="imagecheck == 'new'">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="fileUpload btn btn-primary dim">
+                                                    <i class="fa fa-upload"></i>
+                                                    &nbsp;&nbsp;<span class="bold">Upload</span>
+                                                    <input type="file" ngf-select="addImage(picFileUpload)"
+                                                           ng-model="picFileUpload" name="file"
+                                                           accept="image/*" ngf-max-size="40MB"
+                                                           ngf-model-invalid="errorFile" class="upload">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="imagecheck == 'new'">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="existing-view">
+                                                    <ul style="list-style-type:disc">
+                                                        <li ng-repeat="data in AddImagesList">
+                                                            <img ng-src="{{data.thumb || 'img/no-image-available.jpg'}}">
+                                                            <span><b>Thumbnail:</b>{{data.thumb}}<br><b>Original:</b>{{data.orig}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="imagecheck == 'existing'">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="existing-view">
+                                                    <ul style="list-style-type:disc">
+                                                        <li ng-repeat="data in ListImages">
+                                                            <img ng-src="{{data.backgroundImage.thumbnail || 'img/no-image-available.jpg'}}">
+                                                            <span><b>Thumbnail:</b>{{data.backgroundImage.thumbnail}}<br><b>Original:</b>{{data.backgroundImage.original}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="editForm.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="addView">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="marginB30">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-7"><h2>Add Template</h2></div>
+                <div class="col-md-6 col-sm-6 col-xs-5">
+                    <button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;"
+                            ng-click="listTemplateButton()">List Templates
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" dw-loading="AddTemplateLoad">
+                <div class="ibox float-e-margins">
+
+                    <div>
+                        <form novalidate name="myForm" ng-submit="addTemplateSubmit(myForm.$valid)"
+                              enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Template Category* (Press and hold Ctrl to select multiple)</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplateName">
+                                            <select name="TemplateName" placeholder="Select Category"
+                                                    class="form-control chosen-select" multiple=""
+                                                    ng-model="addTemplate.TemplateCategory"
+                                                    ng-disabled="ListCategory.length == 0" required>
+                                                <option value="" disabled selected>Select Category</option>
+                                                <option value="{{data._id}}" ng-repeat="data in ListCategory">
+                                                    {{data.name[0]}} ({{data.name[1]}})
+                                                </option>
+                                            </select>
+                                            <div class="error"
+                                                 ng-show="TemplateName.$submitted || TemplateName.TemplateName.$dirty && TemplateName.TemplateName.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <!--<div ng-dropdown-multiselect="" options="example14data" selected-model="example14model" checkboxes="true" extra-settings="example14settings"></div>-->
+                                <div class="col-sm-6">
+                                    <label>Template Name*</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplateName">
+                                            <input type="text" name="TemplateName"
+                                                   class="form-control" ng-model="addTemplate.TemplateName" required>
+                                            <div class="error"
+                                                 ng-show="TemplateName.$submitted || TemplateName.TemplateName.$dirty && TemplateName.TemplateName.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplateName.TemplateName.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Template Price*</label>
+                                    <div class="form-group">
+                                        <ng-form name="TemplatePrice">
+                                            <input type="text" name="TemplatePrice"
+                                                   class="form-control" ng-model="addTemplate.TemplatePrice" required>
+                                            <div class="error"
+                                                 ng-show="TemplatePrice.$submitted || TemplatePrice.TemplatePrice.$dirty && TemplatePrice.TemplatePrice.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="TemplatePrice.TemplatePrice.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Custom*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Custom">
+                                            <select class="form-control" ng-change="selectCustom(addTemplate)" ng-model="addTemplate.Custom">
+                                                <option value="true">true</option>
+                                                <option value="false">false</option>
+                                            </select>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4>Template Image*</h4>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <img ng-show="picFileTemplate != undefined || picFileTemplate != null"
+                                                 ngf-thumbnail="picFileTemplate" class="thumbnail">
+
+                                            <!--<img ng-show="myForm.file.$valid" ngf-thumbnail="picFileTemplate" class="thumbnail">-->
+                                        </div>
+                                    </div>
+                                    <div dw-loading="fileadd" class="row">
+                                        <div class="fileUpload btn btn-primary dim">
+                                            <i class="fa fa-upload"></i>
+                                            &nbsp;&nbsp;<span class="bold">Upload</span>
+                                            <input type="file" ngf-select="addTemplateImageFunction(picFileTemplate)"
+                                                   ng-model="picFileTemplate" name="file"
+                                                   accept="image/*" ngf-max-size="40MB" required
+                                                   ngf-model-invalid="errorFile" class="upload">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Template Content*</label>
+                                    <div class="form-group">
+                                        <ng-form name="htmlContent">
+                                            <!--<div name="htmlContent" text-angular ng-model="addTemplate.htmlContent" required></div>-->
+                                            <textarea name="htmlContent" class="form-control"
+                                                      ng-model="addTemplate.htmlContent"
+                                                      style="width: 100%;min-height: 300px" required></textarea>
+                                            <div class="error"
+                                                 ng-show="htmlContent.$submitted || htmlContent.htmlContent.$dirty && htmlContent.htmlContent.$invalid">
+                                                <small class="error text-danger"
+                                                       ng-show="htmlContent.htmlContent.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs shadow" type="button"
+                                            ng-click="checkPreview(addTemplate.htmlContent)"
+                                            ng-disabled="addTemplate.htmlContent == '' || addTemplate.htmlContent == undefined">
+                                        <strong>Preview</strong>
+                                    </button>
+                                    <!--<h2 class="text-center text-success font-bold" ng-if="addTemplate.htmlContent != undefined">Preview</h2>-->
+                                    <!--<div class="marginB30" ng-if="addTemplate.htmlContent != undefined" ng-bind-html="addTemplate.htmlContent"></div>-->
+
+
+                                    <label class="cust-radio">Private
+                                        <input type="radio" name="privacy" value="false" ng-model="privacy">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-radio">Public
+                                        <input type="radio" name="privacy" value="true" ng-model="privacy">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <br>
+                                    <br>
+                                    <br>
+
+
+                                    <label class="cust-radio">New
+                                        <input type="radio" name="image" value="new" ng-model="imagecheck"
+                                               ng-click="listNewImagesFunction()">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-radio">Existing
+                                        <input type="radio" name="image" value="existing" ng-model="imagecheck"
+                                               ng-click="listImagesFunction()">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="row" ng-if="imagecheck == 'new'">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="fileUpload btn btn-primary dim">
+                                                    <i class="fa fa-upload"></i>
+                                                    &nbsp;&nbsp;<span class="bold">Upload</span>
+                                                    <input type="file" ngf-select="addImage(picFileUpload)"
+                                                           ng-model="picFileUpload" name="file"
+                                                           accept="image/*" ngf-max-size="40MB"
+                                                           ngf-model-invalid="errorFile" class="upload">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="imagecheck == 'new'">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="existing-view">
+                                                    <ul style="list-style-type:disc">
+                                                        <li ng-repeat="data in AddImagesList">
+                                                            <img ng-src="{{data.thumb || 'img/no-image-available.jpg'}}">
+                                                            <span><b>Thumbnail:</b>{{data.thumb}}<br><b>Original:</b>{{data.orig}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="imagecheck == 'existing'">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="existing-view">
+                                                    <ul style="list-style-type:disc">
+                                                        <li ng-repeat="data in ListImages">
+                                                            <img ng-src="{{data.backgroundImage.thumbnail || 'img/no-image-available.jpg'}}">
+                                                            <span><b>Thumbnail:</b>{{data.backgroundImage.thumbnail}}<br><b>Original:</b>{{data.backgroundImage.original}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myForm.$invalid">
+                                        <!--<button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit">-->
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="listView" ng-if="templateStorage.view == false">
+    <h2 class="text-center">You Don't Have Access</h2>
+</div>
+<div ng-show="listView" ng-if="templateStorage.view == true">
+
+
+    <div dw-loading="TemplateLoad">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="marginB30">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-7"><h2>List Templates</h2></div>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <!-- <button ng-if="templateStorage.add == true" class="pull-right btn btn-primary" type="button"
+                                style="margin-top: 20px;" ng-click="addTemplateButton()">Add Template
+                        </button> -->
+                        <button class="pull-right btn btn-primary" type="button"
+                                style="margin-top: 20px;" ng-click="addTemplateButton()">Add Template
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <h2 class="text-center text-success" ng-if="ListTemplate.length == 0">No Templates currently</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="data in ListTemplate">
+                    <div class="widget blue-bg business-list">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <img ng-src="{{data.imageUrl || 'img/no-image-available.jpg'}}" class="profile-img">
+                                <h4 class="disSize font-bold business-data"> {{data.name}} </h4>
+                                <h4 class="font-bold business-data">{{data.categoryId.name[0]}}
+                                    ({{data.categoryId.name[1]}})</h4>
+                                <h4 class="font-bold business-data" ng-if="data.price == 0">Free</h4>
+                                <h4 class="font-bold business-data" ng-if="data.price != 0">{{data.price}}</h4>
+                                <hr>
+                                Used : {{data.usage || 0}}
+                                <small>time(s)</small>
+                                <br>
+                                <span>
+                                    <a ng-if="templateStorage.edit == true" ng-click="editTemplateButton(data)"
+                                       class="text-success">Edit</a> &nbsp;
+                                    <a ng-if="templateStorage.delete == true" ng-click="deleteTemplate(data._id)"
+                                       class="text-danger">Delete</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

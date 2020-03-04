@@ -1,0 +1,94 @@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="marginB30">
+<div class="row">
+    <div class="col-md-12"><h2>Image</h2></div>
+</div>
+</div>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3" dw-loading="AddImageLoad">
+            <div class="ibox float-e-margins single-image-page">
+              <div>
+                    <form novalidate name="myForm" ng-submit="addImageSubmit(myForm.$valid)" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h4>Image
+                                    <i ng-show="myForm.file.$error.required">*</i>
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <i ng-show="myForm.file.$error.maxSize">File too large
+                                            {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumbnail">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-danger btn-circle" ng-click="picFile = null"
+                                                ng-show="picFile"><i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="fileUpload btn btn-primary dim">
+                                        <i class="fa fa-upload"></i>
+                                        &nbsp;&nbsp;<span class="bold">Upload</span>
+                                        <input type="file" ngf-select ng-model="picFile" name="file"
+                                               accept="image/*" ngf-max-size="2MB" required
+                                               ngf-model-invalid="errorFile" class="upload">
+                                    </div>
+                                </div>
+                            </div>
+                             
+                            <div class="col-md-12 col-sm-12 col-xs-12"><hr></div>
+                            
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <button class="btn btn-md submit-btn btn-primary pull-right m-t-n-xs shadow" type="submit"
+                                        ng-disabled="myForm.$invalid">
+                                    <!--<button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit">-->
+                                    <strong>Submit</strong>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-lg-12" dw-loading="ImageLoad">
+            <!--<div class="ibox-title dyna-color">-->
+                <!--<h5>List Image Url</h5>-->
+            <!--</div>-->
+            <div class="ibox-content wrapper wrapper-content animated fadeInUp">
+                <h2 class="text-center text-success" ng-if="ListImages.length == 0">No Images currently</h2>
+                <div class="table-responsive" ng-if="ListImages.length != 0">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <!--<th>Sr. No.</th>-->
+                            <th>Pic</th>
+                            <th>Thumbnail Url</th>
+                            <th>Original Url</th>
+                            <!--<th>Delete</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in ListImages">
+                            <!--<td>{{$index+1}}</td>-->
+                            <td><img ng-src="{{data.backgroundImage.thumbnail || 'img/no-image-available.jpg'}}" class="profile-imgModal"></td>
+                            <td>{{data.backgroundImage.thumbnail}}</td>
+                            <td>{{data.backgroundImage.original}}</td>
+                            <!--<td><a ng-click="deleteImage(data._id)"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

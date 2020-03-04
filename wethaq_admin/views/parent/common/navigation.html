@@ -1,0 +1,113 @@
+ 
+<nav class="navbar-default navbar-static-side" role="navigation">
+ <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#side-menu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="index.html"><img class="img-responsive" src="img/img_logo_2.png" alt="img"></a>
+    </div>
+
+    <div class="sidebar-collapse collapse navbar-collapse" id="side-menu">
+        <ul  class="nav metismenu side-navigation">
+            <li class="nav-GIT er">
+                <div class="profile-element">
+                    <a ui-sref="parent.dashboard" class="dyna-color1">
+                        <center><img class="main-logo" src="img/img_logo_1.png"></center>
+                    </a>
+                    <!--<ul class="dropdown-menu animated fadeInRight m-t-xs">-->
+                        <!--<li><a href="">Logout</a></li>-->
+                    <!--</ul>-->
+                </div>
+                <div class="logo-element">
+                    <center><img class="logo" src="img/img_logo_2.png"></center>
+                </div>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.dashboard"><i class="fa fa-diamond dyna-color1"></i> <span class="nav-label dyna-color1">Dashboard</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.categories"><i class="fa fa-tags dyna-color1"></i> <span class="nav-label dyna-color1">Categories</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.package"><i class="fa fa-money dyna-color1"></i> <span class="nav-label dyna-color1">Packages</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.users"><i class="fa fa-users dyna-color1"></i> <span class="nav-label dyna-color1">Users</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.templates"><i class="fa fa-columns dyna-color1"></i> <span class="nav-label dyna-color1">Templates</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.events({userId:null,userName:null})" ><i class="fa fa-calendar dyna-color1"></i> <span class="nav-label dyna-color1">Events</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.gaurds"><i class="fa fa-id-badge dyna-color1"></i> <span class="nav-label dyna-color1">Guards</span> </a>
+            </li>
+            <li ng-if="superAdminStorage == true" ui-sref-active="active">
+                <a ui-sref="parent.subadmin"><i class="fa fa-user dyna-color1"></i> <span class="nav-label dyna-color1">Sub Admin</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.promo"><i class="fa fa-tag dyna-color1"></i> <span class="nav-label dyna-color1">Promo</span> </a>
+            </li>
+            <!--<li ui-sref-active="active">-->
+                <!--<a ui-sref="parent.advertisements"><i class="fa fa-tag dyna-color1"></i> <span class="nav-label dyna-color1">Advertisements</span> </a>-->
+            <!--</li>-->
+
+            <li>
+                <a  data-toggle="collapse" data-target="#Promotions" >
+                    <i class="fa fa-image dyna-color1"></i>
+                    <span class="nav-label dyna-color1">Advertisements</span>
+                    <span class="fa arrow"></span>
+                    <ul class="nav nav-second-level collapse" id="Promotions" >
+                        <li ui-sref-active="active"><a ui-sref="parent.promotions">Promotions</a></li>
+                        <li ui-sref-active="active"><a ui-sref="parent.advertisements">Template</a></li>
+                    </ul>
+                </a>
+            </li>
+
+            <li>
+                <a  data-toggle="collapse" data-target="#test" >
+                    <i class="fa fa-image dyna-color1"></i>
+                    <span class="nav-label dyna-color1">Reports</span>
+                    <span class="fa arrow"></span>
+                    <ul class="nav nav-second-level collapse" id="test" >
+                        <li ui-sref-active="active"><a ui-sref="parent.report-users">Users</a></li>
+                        <li ui-sref-active="active"><a ui-sref="parent.report-events">Events</a></li>
+                    </ul>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="parent.image"><i class="fa fa-image dyna-color1"></i> <span class="nav-label dyna-color1">Image</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.notify"><i class="fa fa-bell dyna-color1"></i> <span class="nav-label dyna-color1">Push Notification</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.chat"><i class="fa fa-envelope-o dyna-color1"><span class="badge" ng-show="badge">.</span></i> <span class="nav-label dyna-color1">Chat</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="parent.feedback"><i class="fa fa-comment-o dyna-color1"><span class="badge" ng-show="badge">.</span></i> <span class="nav-label dyna-color1">Feedback</span>
+                </a>
+            </li>
+
+            <li>
+                <a ng-click="logout()"><i class="fa fa-sign-out dyna-red"></i> <span class="nav-label dyna-red">Log out</span> </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script type="text/javascript">
+    $(function(){ 
+     var navMain = $(".navbar-collapse"); // avoid dependency on #id
+     // "a:not([data-toggle])" - to avoid issues caused
+     // when you have dropdown inside navbar
+     navMain.on("click", "a:not([data-toggle])", null, function () {
+         navMain.collapse('hide');
+     });
+ });
+</script>

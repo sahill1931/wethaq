@@ -1,0 +1,111 @@
+
+    <!--<div class="row wrapper white-bg page-heading" >-->
+    <!--</div>-->
+    <div class="wrapper wrapper-content animated fadeInRight" ng-if="notifyVar == 0">
+    <div class="marginB30">
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-7"> 
+   <h2>Notification</h2>
+   </div>
+   <div class="col-md-6 col-sm-6 col-xs-5"> 
+    <button ng-if="notifyVar == 0" class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listNotification(1)">List Notifications</button>
+    <button ng-if="notifyVar == 1" class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listNotification(0)">Add notification</button>
+    </div>
+    </div>
+</div>
+        <div class="row">
+            <div class="col-md-12" dw-loading="notificationLoad">
+                <div class="ibox float-e-margins">
+                    <div>
+                        <form novalidate name="myForm" ng-submit="notificationSubmit(myForm.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <label>Title*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Title">
+                                            <input type="text" name="Title"
+                                                   class="form-control" ng-model="addNotify.Title" required>
+                                            <div class="error"
+                                                 ng-show="Title.$submitted || Title.Title.$dirty && Title.Title.$invalid">
+                                                <small class="error text-danger" ng-show="Title.Title.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                <label>Date/Time*</label>
+                                    <div class="form-group">
+                                        <ng-form name="dateTime">
+                                            <input ng-model="addNotify.dateTime" class="form-control" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" readonly required/>
+                                            <div class="error"
+                                                 ng-show="dateTime.$submitted || dateTime.dateTime.$dirty && dateTime.dateTime.$invalid">
+                                                <small class="error text-danger" ng-show="dateTime.dateTime.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                <label>Message*</label>
+                                    <div class="form-group">
+                                        <ng-form name="message">
+                                            <textarea name="message" class="form-control" ng-model="addNotify.Message" style="width: 100%;min-height: 300px" required></textarea>
+                                            <div class="error"
+                                                 ng-show="message.$submitted || message.message.$dirty && message.message.$invalid">
+                                                <small class="error text-danger" ng-show="message.message.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myForm.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div ng-if="notifyVar == 1">
+    <!--<div class="row wrapper white-bg page-heading">-->
+    <!--</div>-->
+    <div class="row">
+        <div class="col-lg-12" dw-loading="CodeLoad">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                <h2 class="text-center text-success" ng-if="ListCode.length == 0">No notifications currently</h2>
+                <div class="col-lg-3" ng-repeat="data in ListCode">
+                    <div class="widget blue-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h2 class="font-bold business-data" style="color: #000000cc;font-size:14px;" title="{{data.title}}">Title: <b>{{data.title}}</b></h2>
+                                <h3 class="font-bold business-data text-success" style="font-size:12px;" title="{{data.body}}">Body: {{data.body}}</h3>
+                                <h4 class="font-bold business-data" style="color: #000000cc;font-size:13px;">Created On</h4>
+                                <span class="font-bold business-data" style="font-size:12px;">{{data.createdAt  | date :  "MMMM d, y (HH:mm a)"}}</span>
+                                <h4 class="font-bold business-data" style="color: #000000cc;font-size:13px;">Sent on</h4>
+                                <span class="font-bold business-data" style="font-size:12px;">{{data.sendAt  | date :  "MMMM d, y (HH:mm a)"}}</span>
+                                <div class="col-xs-12 text-center">
+                                    <hr>
+                                    <span>
+                                        <a ng-if="data.isDeleted" disabled class="text-danger">DELETED</a>
+                                        <a ng-if="!data.isDeleted" ng-click="deleteNotific(data._id)" class="text-danger">Delete</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

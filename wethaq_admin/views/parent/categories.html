@@ -1,0 +1,290 @@
+<div ng-show="editView">
+ 
+   <div class="wrapper wrapper-content animated fadeInRight">
+   <div class="marginB30">
+     <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-7"><h2>Edit Category</h2></div>
+      <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listCategoryButton()">List Categories</button></div>
+     </div>
+   </div>
+      <div class="row">
+         <div class="col-md-12" dw-loading="EditCategoryLoad">
+            <div class="ibox float-e-margins">
+               <!--<div class="ibox-title dyna-color">-->
+               <!--<h5>Edit a Category</h5>-->
+               <!--</div>-->
+               <div>
+                  <form novalidate name="myFormedit" ng-submit="editCategorySubmit(myFormedit.$valid)" enctype="multipart/form-data">
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <label>Category Name*</label>
+                           <div class="form-group">
+                              <ng-form name="CategoryName">
+                                 <input type="text" name="CategoryName"
+                                    class="form-control" ng-model="edit.CategoryName" required>
+                                 <div class="error"
+                                    ng-show="CategoryName.$submitted || CategoryName.CategoryName.$dirty && CategoryName.CategoryName.$invalid">
+                                    <small class="error text-danger" ng-show="CategoryName.CategoryName.$error.required">
+                                    Field is required.
+                                    </small>
+                                 </div>
+                              </ng-form>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>Category Name(in Arabic)*</label>
+                           <div class="form-group">
+                              <ng-form name="CategoryNameArabic">
+                                 <input type="text" name="CategoryNameArabic"
+                                    class="form-control" ng-model="edit.CategoryNameArabic" required>
+                                 <div class="error"
+                                    ng-show="CategoryNameArabic.$submitted || CategoryNameArabic.CategoryNameArabic.$dirty && CategoryNameArabic.CategoryNameArabic.$invalid">
+                                    <small class="error text-danger" ng-show="CategoryNameArabic.CategoryNameArabic.$error.required">
+                                    Field is required.
+                                    </small>
+                                 </div>
+                              </ng-form>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <h4>Icon
+                              <i ng-show="myFormedit.icon.$error.required">*</i>
+                           </h4>
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <i ng-show="myFormedit.icon.$error.maxSize">File too large
+                                 {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-10">
+                                 <img ng-show="myFormedit.icon.$valid" ngf-thumbnail="picIconedit" class="thumbnail">
+                              </div>
+                              <div class="col-sm-2">
+                                 <button class="btn btn-danger btn-circle" ng-click="picIconedit = null" ng-show="picIconedit"><i class="fa fa-times"></i>
+                                 </button>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="fileUpload btn btn-primary dim">
+                                 <i class="fa fa-upload"></i>
+                                 &nbsp;&nbsp;<span class="bold">Upload</span>
+                                 <input type="file" ngf-select ng-model="picIconedit" name="icon"
+                                    accept="image/*" ngf-max-size="2MB" required
+                                    ngf-model-invalid="errorFile" class="upload">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <h4>Image
+                              <i ng-show="myFormedit.file.$error.required">*</i>
+                           </h4>
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <i ng-show="myFormedit.file.$error.maxSize">File too large
+                                 {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-10">
+                                 <img ng-show="myFormedit.file.$valid" ngf-thumbnail="picFileedit" class="thumbnail">
+                              </div>
+                              <div class="col-sm-2">
+                                 <button class="btn btn-danger btn-circle" ng-click="picFileedit = null" ng-show="picFileedit"><i class="fa fa-times"></i>
+                                 </button>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="fileUpload btn btn-primary dim">
+                                 <i class="fa fa-upload"></i>
+                                 &nbsp;&nbsp;<span class="bold">Upload</span>
+                                 <input type="file" ngf-select ng-model="picFileedit" name="file"
+                                    accept="image/*" ngf-max-size="2MB" required
+                                    ngf-model-invalid="errorFile" class="upload">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" style="margin-top: 20px;" type="submit" ng-disabled="myFormedit.$invalid">
+                           <strong>Submit</strong>
+                           </button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div ng-show="addView">
+ 
+   <div class="wrapper wrapper-content animated fadeInRight">
+   <div class="marginB30">
+     <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-7"><h2>Add Category</h2></div>
+    <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listCategoryButton()">List Categories</button></div>
+  
+   </div>
+   </div>
+      <div class="row">
+         <div class="col-md-12" dw-loading="AddCategoryLoad">
+            <div class="ibox float-e-margins">
+             
+               <div>
+                  <form novalidate name="myForm" ng-submit="addCategorySubmit(myForm.$valid)" enctype="multipart/form-data">
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <label>Category Name*</label>
+                           <div class="form-group">
+                              <ng-form name="CategoryName">
+                                 <input type="text" name="CategoryName"
+                                    class="form-control" ng-model="addCategory.CategoryName" required>
+                                 <div class="error"
+                                    ng-show="CategoryName.$submitted || CategoryName.CategoryName.$dirty && CategoryName.CategoryName.$invalid">
+                                    <small class="error text-danger" ng-show="CategoryName.CategoryName.$error.required">
+                                    Field is required.
+                                    </small>
+                                 </div>
+                              </ng-form>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <label>Category Name(in Arabic)*</label>
+                           <div class="form-group">
+                              <ng-form name="CategoryNameArabic">
+                                 <input type="text" name="CategoryNameArabic"
+                                    class="form-control" ng-model="addCategory.CategoryNameArabic" required>
+                                 <div class="error"
+                                    ng-show="CategoryNameArabic.$submitted || CategoryNameArabic.CategoryNameArabic.$dirty && CategoryNameArabic.CategoryNameArabic.$invalid">
+                                    <small class="error text-danger" ng-show="CategoryNameArabic.CategoryNameArabic.$error.required">
+                                    Field is required.
+                                    </small>
+                                 </div>
+                              </ng-form>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <h4>Icon
+                              <i ng-show="myForm.icon.$error.required">*</i>
+                           </h4>
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <i ng-show="myForm.icon.$error.maxSize">File too large
+                                 {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-10">
+                                 <img ng-show="myForm.icon.$valid" ngf-thumbnail="iconFile" class="thumbnail">
+                              </div>
+                              <div class="col-sm-2">
+                                 <button class="btn btn-danger btn-circle" ng-click="iconFile = null" ng-show="iconFile"><i class="fa fa-times"></i>
+                                 </button>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="fileUpload btn btn-primary dim">
+                                 <i class="fa fa-upload"></i>
+                                 &nbsp;&nbsp;<span class="bold">Upload</span>
+                                 <input type="file" ngf-select ng-model="iconFile" name="icon"
+                                    accept="image/*" ngf-max-size="2MB" required
+                                    ngf-model-invalid="errorFile" class="upload">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <h4>Image
+                              <i ng-show="myForm.file.$error.required">*</i>
+                           </h4>
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <i ng-show="myForm.file.$error.maxSize">File too large
+                                 {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-10">
+                                 <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumbnail">
+                              </div>
+                              <div class="col-sm-2">
+                                 <button class="btn btn-danger btn-circle" ng-click="picFile = null" ng-show="picFile"><i class="fa fa-times"></i>
+                                 </button>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="fileUpload btn btn-primary dim">
+                                 <i class="fa fa-upload"></i>
+                                 &nbsp;&nbsp;<span class="bold">Upload</span>
+                                 <input type="file" ngf-select ng-model="picFile" name="file"
+                                    accept="image/*" ngf-max-size="2MB" required
+                                    ngf-model-invalid="errorFile" class="upload">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" style="margin-top: 20px;" type="submit"
+                              ng-disabled="myForm.$invalid">
+                              <!--<button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit">-->
+                              <strong>Submit</strong>
+                           </button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div ng-show="listView" ng-if="categoryStorage.view == false">
+   <h2 class="text-center">You Don't Have Access</h2>
+</div>
+
+<div ng-show="listView" ng-if="categoryStorage.view == true">
+   <div class="row">
+      <div class="col-lg-12" dw-loading="CategoryLoad">
+         <div class="wrapper wrapper-content animated fadeInUp">
+         <div class="marginB30">
+            <div class="row">
+               <div class="col-md-6 col-sm-6 col-xs-7">
+                  <h2>List Categories</h2>
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-5">
+                  <button  ng-if="categoryStorage.add == true" class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="addCategoryButton()">Add Category</button>
+               </div>
+            </div>
+            </div>
+            <h2 class="text-center text-success" ng-if="ListCategory.length == 0">No Categories currently</h2>
+            <div class="row">
+               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="data in ListCategory">
+                  <div class="widget blue-bg business-list">
+                     <div class="row">
+                        <div class="col-xs-12 text-center">
+                           <img ng-src="{{data.categoryImage.thumbnail || 'img/no-image-available.jpg'}}" class="profile-img">
+                           <h4 class="disSize font-bold business-data"> {{data.name[0]}} </h4>
+                           <h4 class="font-bold business-data">{{data.name[1]}}</h4>
+                           <hr>
+                           <span>
+                           <a ng-if="categoryStorage.edit == true" ng-click="editCategoryButton(data)" class="text-success">Edit</a> &nbsp;
+                           <a ng-if="categoryStorage.delete == true" ng-click="deleteCategory(data._id)" class="text-danger">Delete</a>
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

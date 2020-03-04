@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function validateForm() {
+        var not = true
+        $("input").each(function() {
+            var name = $(this).attr('name')
+            if ($(this).val() === "") {
+                alert(name + " can not be empty");
+                not = false
+            }
+        })
+        return not;
+    }
+    function validateNew() {
+
+        $('form').submit(function () {
+            var valid = true;
+            $(this).find(".required").each(function (i) {
+                if ($(this).val().length == 0) {
+                    alert("null value detected")
+                    valid = false;
+                }
+            });
+            return valid;
+        })
+    }
+</script>
+<body>
+<form name="myForm" action="abc.asp"
+      onsubmit="return validateForm()" method="post">
+    Name: <input type="text" name="fullName" id="name">
+    wsdfsdf<input type="email" name="emailId" id="emailId">
+    <input type="submit" value="Submit">
+</form>
+<script>
+    function testabc()
+    {
+        var chars = "abc".split('').reverse();
+        var chars1 = "xyz".split('').reverse();
+        //var a = chars.push(chars1)
+        chars.slice(2, 1)
+        return chars
+    }
+    console.log(testabc())
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+    function validateFormsdfsdf()
+    {
+        var fields = ["name, phone", "compname", "mail", "compphone", "adres", "zip"]
+
+        var i, l = fields.length;
+        var fieldname;
+        for (i = 0; i < l; i++) {
+            fieldname = fields[i];
+            if (document.forms["register"][fieldname].value === "") {
+                alert(fieldname + " can not be empty");
+                return false;
+            }
+        }
+        return true;
+    }
+    function validateForm1() {
+        var fields = []
+        $("input").each(function() {
+            fields.push($(this).name())
+        })
+        console.log(fields, '========')
+        return false;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="text-center" style="margin-top:50px">
+        <h1>Wethaq</h1>
+        <div>
+            <button class="btn btn-primary" ng-click="inviteFun('Accepted')">Accept</button>
+            <button class="btn btn-danger" ng-click="inviteFun('Rejected')">Reject</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope,$http) {
+        var urlParams = window.location;
+        var res = urlParams.toString().split("=");
+        var event = res[1].toString().split("&");
+        $scope.eventId = event[0];
+        $scope.phoneNo= res[2];
+        console.log('parameter',$scope.eventId,$scope.phoneNo)
+
+        $scope.inviteFun =  function (status) {
+            var formdata =  new FormData();
+            formdata.append('eventId',$scope.eventId);
+            formdata.append('phoneNo',$scope.phoneNo)
+            formdata.append('status',status)
+
+            $http({
+                method : "POST",
+                url: 'http://34.211.166.21:8001/admin/actionInvite',
+                headers: {
+                    'Content-Type':undefined
+                },
+                data:formdata
+            }).then(function (response) {
+                $scope.myWelcome = response.data;
+                console.log('response',response.data)
+            })
+        }
+    });
+</script>
+
+</body>
+</html>

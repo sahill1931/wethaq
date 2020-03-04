@@ -1,0 +1,249 @@
+<div ng-show="listView && eventStorage.view == false" >
+    <h2 class="text-center">You Don't Have Access</h2>
+</div>
+<div">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <!--<div class="marginB30">-->
+        <div class="marginB30">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4"><h2>Templates</h2></div>
+                <div class="col-md-8 col-sm-8 col-xs-8"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px; float: right" ui-sref="parent.addadvertisements({type:'add'})">Add templates</button></div>
+            </div>
+
+        <div class="row">
+            <div dw-loading="EventsLoad">
+
+                <h2 class="text-center text-success" ng-if="ListEvents.length == 0">No advertisements currently</h2>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ng-repeat="data in ListEvents">
+                    <a ui-sref="parent.addadvertisements({type:'edit',id:data._id})">
+                        <div class="widget blue-bg user-list">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <img ng-src="{{(!!data.adImageURL.thumbnail && data.adImageURL.adImageURL !='') ?  data.adImageURL.thumbnail  :'img/no-image-available.jpg'}}" class="profile-img1 text-center">
+                                    <h3 class="disSize font-bold business-data faIconcolor"> {{data.url}} </h3>
+
+                                    <hr>
+
+                                    <small  style="padding: 10px 0 0;color: #000 !important;">
+                                       Category : {{data.categoryId.name[0] || 'All'}}
+                                    </small>
+                                    <br>
+                                    <small  style="padding: 10px 0 0;color: #000 !important;">
+                                        Gender  :  {{data.gender || 'All'}}
+                                    </small>
+                                    <br>
+                                    <small  style="padding: 10px 0 0;color: #000 !important;">
+                                       Age range :  {{data.startAge}} - {{ data.endAge}}
+                                    </small><br>
+                                    <small  style="padding: 10px 0 0;color: #000 !important;">
+                                       Location :  {{data.address}}
+                                    </small><br>
+                                    
+                                    <a  ng-click="deleteAdv(data._id)"
+                                       class="text-danger">Delete</a>
+
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="row" ng-if="ListEvents.length < ListEventsCount && ListEvents.length!=0">
+                    <div class="col-md-12">
+                        <button class="pull-left btn btn-primary" type="button" style="margin-bottom: 20px; margin-left:15px;" ng-click="more()">More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="detailView">
+    <div class="marginB30">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6 col-xs-7"><h2>Detail Event</h2></div>
+            <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listEventButton()">List Events</button></div>
+
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6">
+            Event image:
+            <img data-toggle="modal" data-target="#myModal" src="{{detailsOfEvent.imageUrl}}" alt="No image" style="height:100px; width:100px;">
+
+        </div>
+        <div class="col-md-6">
+            <p>Message : {{detailsOfEvent.message}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" dw-loading="EventsLoad">
+            <!--<div class="wrapper wrapper-content animated fadeInUp">-->
+            <!--</div>-->
+            <div class="row m-b-lg m-t-lg">
+                <div class="col-md-6">
+                    <div class="profile-image">
+                        <img ng-src="{{detailsOfEvent.createdBy.profilePicture.thumbnail || 'img/no-image-available.jpg'}}" class="img-circle circle-border m-b-md" alt="profile">
+                    </div>
+                    <div class="profile-info">
+                        <div class="">
+                            <div>
+                                <h2 class="no-margins">
+                                    {{detailsOfEvent.createdBy.name}}
+                                </h2>
+                                <br>
+                                <small>Address <strong>{{detailsOfEvent.address}}</strong></small><br>
+                                <small>Category Price <strong>{{detailsOfEvent.categoryPrice}}</strong></small>&nbsp;&nbsp;
+                                <small>SMS Price <strong>{{detailsOfEvent.smsPrice}}</strong></small>&nbsp;&nbsp;
+                                <small>Total Price <strong>{{detailsOfEvent.totalPrice}}</strong></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <table class="table small m-b-xs">
+                        <tbody>
+                        <tr>
+                            <td>
+                                Contact <strong>{{detailsOfEvent.createdBy.phoneNo}}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Email <strong>{{detailsOfEvent.createdBy.email}}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                DOB <strong>{{detailsOfEvent.createdBy.dob | date}}</strong>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3" >
+                    <small>Created At</small>
+                    <h4 class="no-margins">{{detailsOfEvent.createdAt  | date : "medium"}}</h4>
+                    <button ng-hide="detailsOfEvent.isBlocked" class=" btn btn-primary" type="button"
+                            ng-click="openModals()" style="margin-top: 20px;text-align: left">Delete</button>
+
+                    <button ng-show="detailsOfEvent.isBlocked" class=" btn btn-danger" type="button" style="margin-top: 20px;text-align: left">Deleted</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="event-details">
+                                <label>Accepted</label>
+                                {{detailsOfEvent.accepted}}/{{detailsOfEvent.total}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="event-details">
+                                <label>Rejected</label>
+                                {{detailsOfEvent.rejected}}/{{detailsOfEvent.total}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="event-details">
+                                <label>Total Price</label>
+                                {{detailsOfEvent.totalPrice}}/{{detailsOfEvent.total}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <label>Guard Details </label>
+                        <a class="btn" ng-click="addmoreguards()">Add more</a>
+
+                    </div>
+                    <div class="guard-details">
+                        <div class="col-md-12">
+                            <table class="table table-responsive">
+                                <tr><th>Name</th><th>Phone no</th><th>Status</th>
+                                <tr ng-repeat="item in detailsOfEvent.guards">
+                                    <td>{{item.userId.name || '-'}}</td>
+                                    <td>{{item.phoneNo || '-'}}</td>
+                                    <td>{{item.status || '-'}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="guest-list">
+                            <div class="marginB30">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-7">
+                                        <h3>Guest List
+                                            <a ng-click="setexceldataguest(detailsOfEvent.invites)">Export </a>
+                                        </h3>
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-5">
+                                        <button ng-click="addmoreguests()" class="btn btn-primary pull-right">Add more</button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Name</th>
+                                        <th>Phone No</th>
+                                        <th>QR Code</th>
+                                        <th>Status</th>
+                                        <th>Checkin Status</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr ng-repeat="data in detailsOfEvent.invites">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{data.name}}</td>
+                                        <td>{{data.phoneNo}}</td>
+                                        <td>
+                                       <span ng-show="detailsOfEvent.isQrCode == true">
+                                           <i class="fa fa-check" ng-click="showQR()"></i>
+                                       </span>
+                                            <span ng-show="detailsOfEvent.isQrCode != true">
+                                           <i class="fa fa-times-circle"></i>
+                                       </span>
+                                        </td>
+                                        <td>{{data.status}}</td>
+                                        <td>
+                                       <span ng-show="!data.checkedAt || data.checkedAt == 0">
+                                          Pending/No show
+                                       </span>
+                                            <span ng-show="data.checkedAt>0">
+                                         Attended
+                                       </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+

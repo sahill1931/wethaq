@@ -1,0 +1,311 @@
+<style>
+    body {
+        /*background-color: #000;*/
+        color: #fff;
+        font-size: 15px;
+
+    }
+
+    .main {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    a,
+    a:hover,
+    a,
+    a:focus {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .mainBg {
+        /*background-image: url(img/background-img.jpg);*/
+        /*background-color: #f7f7f7;*/
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* opacity:.5 ; */
+        /*position: absolute;*/
+        height: 100%;
+        width: 100%;
+        /*min-height: 600px;*/
+    }
+
+    .action-block {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .action-block span {
+        font-size: 50px;
+    }
+
+    .action-block p {
+        font-size: 20px;
+        line-height: normal;
+        margin-bottom: 0;
+    }
+
+    .action-block a {
+        color: #fff;
+    }
+    .btn{margin: 5px !important;}
+    .qr-code span {
+        font-size: 120px;
+        text-align: center;
+        display: block;
+        margin: 50px 0;
+    }
+
+    .btn-primary {
+
+        background: linear-gradient(to right, #72CCE8, #CE89FB) !important;
+
+        border: none !important;
+        color: #FFFFFF;
+        padding: 10px 50px;
+    }
+
+    .btn-default {
+        padding: 10px 20px;
+        margin-right: 10px;
+    }
+
+    .btn-container {
+        text-align: center;
+        margin-top: 0;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 15px
+    }
+
+    .logo-invi {
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    .logo-invi img {
+        height: 800px !important
+    }
+
+    /*media query start*/
+
+    @media (max-width: 767px) {
+        .modal-dialog {
+            position: relative;
+            width: 279px;
+            margin: 0 auto;
+        }
+        .mainBg {
+            min-height: 600px;
+        }
+        .action-block span {
+            font-size: 25px;
+        }
+        .action-block p {
+            font-size: 15px;
+
+        }
+        p {
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        /* .logo-invi img{max-width:100px;} */
+        .btn-container {
+            text-align: center;
+            margin-top: 0;
+            width: 100%;
+            text-align: center;
+            padding-bottom: 15px
+        }
+    }
+</style>
+
+
+<div class="mainBg" dw-loading="loader">
+    <div class="container" ng-if="ListEventDetails != undefined">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row" style="padding:13px 42px 2px 21px">
+                    <div class="col-xs-6">
+                        <a data-toggle="modal" data-target="#myModal" ng-show="ListEventDetails.invites[0].qr!='' && !ListEventDetails.lang" class="btn btn-default">Show QR</a>
+                        <a data-toggle="modal" data-target="#myModal" ng-show="ListEventDetails.invites[0].qr!='' && ListEventDetails.lang == 'en'" class="btn btn-default">Show QR</a>
+                        <a data-toggle="modal" data-target="#myModal" ng-show="ListEventDetails.invites[0].qr!='' && ListEventDetails.lang == 'ar'" class="btn btn-default">إظهار رمز الدخول</a>
+                        <a ng-show=" !ListEventDetails.lang && (ListEventDetails.location[1]!=0 && ListEventDetails.location[0]!=0 )" href="http://maps.google.com/?q={{ListEventDetails.location[1]}},{{ListEventDetails.location[0]}}" target="_blank" class="btn btn-default" >Show Location</a>
+                        <a ng-show="ListEventDetails.lang == 'en' && (ListEventDetails.location[1]!=0 && ListEventDetails.location[0]!=0 )" href="http://maps.google.com/?q={{ListEventDetails.location[1]}},{{ListEventDetails.location[0]}}" target="_blank" class="btn btn-default" >Show Location</a>
+                        <a ng-show="ListEventDetails.lang == 'ar' && (ListEventDetails.location[1]!=0 && ListEventDetails.location[0]!=0 ) " href="http://maps.google.com/?q={{ListEventDetails.location[1]}},{{ListEventDetails.location[0]}}" target="_blank" class="btn btn-default" >إظهار الموقع</a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a style="background-color: green" ng-show="(ListEventDetails.invites[0].status == 'Pending' && !ListEventDetails.lang)"  class="btn btn-success" ng-click="acceptInvi()">Accept</a>
+                        <a style="background-color: green" ng-show="(ListEventDetails.invites[0].status == 'Pending' && ListEventDetails.lang == 'en') || (ListEventDetails.invites[0].status == 'Pending' && ListEventDetails.lang=='en')" class="btn btn-success" ng-click="acceptInvi()">Accept</a>
+                        <a style="background-color: green" ng-show="(ListEventDetails.invites[0].status == 'Pending' && !!ListEventDetails.lang && ListEventDetails.lang == 'ar' ) || (ListEventDetails.invites[0].status == 'Pending' && ListEventDetails.lang=='ar')" class="btn btn-success" ng-click="acceptInvi()">ارغب بالحضور</a>
+                        <a ng-show="(ListEventDetails.invites[0].status == 'Pending' && !ListEventDetails.lang )" class="btn btn-danger" ng-click="rejectInvi()">Reject</a>
+                        <a ng-show="(ListEventDetails.invites[0].status == 'Pending' && ListEventDetails.lang == 'en') || (ListEventDetails.invites[0].status == 'Pending' && ListEventDetails.lang=='en')" class="btn btn-danger" ng-click="rejectInvi()">Reject</a>
+                        <a ng-show="(ListEventDetails.invites[0].status == 'Pending' && !!ListEventDetails.lang && ListEventDetails.lang == 'ar') || (ListEventDetails.invites[0].status == 'Pending' && ListEventDetails.lang=='ar' )" class="btn btn-danger" ng-click="rejectInvi()">اعتذر عن الحضور</a>
+                    </div>
+                </div>
+                <!--<div class="row" style="padding:20px">-->
+                <!--<div class="col-xs-6">-->
+ <!---->
+                <!--</div>-->
+                    <!--<div class="col-xs-6">-->
+       <!---->
+                <!--</div>-->
+            </div>
+        </div>
+        <!-- <div class="col-xs-12">
+            <div class="btn-container">
+                <a class="btn btn-primary" ng-click="acceptInvi()">Accept</a>
+            </div>
+        </div> -->
+    </div>
+
+    <!--<div ng-if="showErr" class="row">-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="logo-invi">
+                <a>
+                    <img class="img-responsive center-block" ng-src='{{ListEventDetails.imageUrl}}'>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+    <div style="background-color: black;float: left;
+    width: 100%;" ng-if="!showErr">
+        <div class="col-md-12">
+            <h2  class="text-center">Your event time is expired.
+            </h2>
+        </div>
+    </div>
+<div class="container" ng-hide="showErr" ng-if="ListEventDetails == undefined">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="logo-invi">
+                <a>
+                    <img class="img-responsive center-block" src="img/logo.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">No Such Invitation Found</h2>
+        </div>
+    </div>
+</div>
+<!-- <div class="container" ng-hide="showErr" ng-if="ListEventDetails != undefined"> -->
+<!-- <div class="row">
+    <div class="col-md-12">
+        <div class="logo-invi"><a><img class="img-responsive center-block" src="img/logo.png"></a></div>
+    </div>
+</div> -->
+<!-- <div class="row">
+    <div class="col-md-12">
+        <p class="text-center">{{ListEventDetails.title}}</p>
+    </div>
+</div> -->
+
+<!-- <div class="row">
+    <div class="col-md-12">
+        <p class="text-center" ng-repeat="data in ListEventDetails.tags">{{data}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <div class="action-block">
+            <span class="glyphicon glyphicon-calendar"></span>
+            <p>
+                <strong>Date</strong>
+            <div class="clearfix"></div>
+            {{ListEventDetails.startAt | date :  "mediumDate"}}
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <a href="javascript://">
+            <div class="action-block">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <p>
+                    <strong>Location</strong>
+                <div class="clearfix"></div>
+                {{ListEventDetails.address}}
+                </p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <div class="action-block">
+            <span class="glyphicon glyphicon-time"></span>
+            <p>
+                <strong>Time</strong>
+            <div class="clearfix"></div>
+            {{ListEventDetails.startAt | date :  "shortTime"}}-{{ListEventDetails.endAt | date :  "shortTime"}}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 50px">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="qr-code">
+            <span><img ng-src="{{ListEventDetails.qrCodes[0].qr}}" class="img-responsive center-block"></span>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="qr-code  text-center" >
+            <p>By</p>
+            <p>{{ListEventDetails.createdBy.name}}</p>
+            <p>{{ListEventDetails.createdBy.phoneNo}}</p>
+        </div>
+    </div>
+
+
+
+</div> -->
+
+
+</div>
+
+
+
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <!--<h4 style="color:black" class="modal-title">QR code</h4>-->
+            </div>
+            <div class="modal-body">
+                <p ng-show="ListEventDetails.lang == 'en'" style="color: #000;">This is a private event.. Please save your QR</p>
+                <p ng-show="ListEventDetails.lang == 'ar'" style="color: #000;">(الدعوة شخصية ) للدخول الرجاء تصوير الكود الخاص بك
+                </p>
+                <img src="{{ListEventDetails.invites[0].qr}}">
+
+                <p style="color:#000" ng-show="ListEventDetails.lang == 'en'">This QR code can be shared with {{ListEventDetails.invites[0].inviteCount}}</p>
+                <!-- <p style="color:#000" ng-show="ListEventDetails.lang == 'ar'">{{ListEventDetails.invites[0].inviteCount}} يمكن مشاركة رمز الاستجابة السريعة هذا مع</p> -->
+                <p style="color:#000" ng-show="ListEventDetails.lang == 'ar'">يمكنك مشاركة هذا الكود مع {{ListEventDetails.invites[0].inviteCount}} اشخاص اخرين</p>
+            </div>
+            <div class="modal-footer">
+                <button ng-if=" ListEventDetails.lang == 'en'" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button ng-if=" ListEventDetails.lang != 'en'" type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
+            </div>
+        </div>
+
+    </div>
+</div>

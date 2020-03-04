@@ -1,0 +1,238 @@
+<style>
+
+	@font-face {
+		font-family: "Roboto";
+		src: url('fonts/SF-UI-Display-Regular.otf') format('opentype');
+		font-weight: 400;
+		font-style: normal;
+	}
+	@font-face {
+		font-family:'g-medium';
+		src: url('../fonts/GE_SS_Text_Medium.otf') format('opentype');
+		font-weight: 400;
+		font-style: normal;
+	}
+	.login-page {
+		padding-top: 35px;
+		background: url(img/img_bg.jpg);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		height: auto;
+		overflow: hidden;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+	.login-page .logo
+	{
+		width: auto;
+		display: inline-block;
+	}
+	.form {
+		background: rgba(246, 248, 255, 0.26);
+		padding: 15px 35px;
+		border-radius: 4px;
+		box-shadow: 0 7px 15px 0 rgba(4, 4, 4, 0.5);
+		width: 370px;
+		float: right;
+	}
+	.form input {
+		font-family: "Roboto", sans-serif;
+		background: transparent;
+		width: 100%;
+		border-top: 0;
+		padding: 0 0 0 5px;
+		margin: 0;
+		border-left: 0;
+		color: white !important;
+		border-right: 0;
+		font-size: 16px;
+		/*border-bottom: 2px solid linear-gradient(to right,#CE89FB,#72CCE8);*/
+		height: 34px;
+	}
+	.form .form-group {
+		margin-bottom: 30px;
+	}
+
+	.form .form-group:last-of-type{
+		margin-bottom: 0;
+	}
+	.form button {
+		border-radius: 4px;
+		/*background: #0c2461 !important;*/
+		color: white !important;
+		margin-top: 30px;
+		margin-bottom: 0;
+		padding: 14px 0px;
+		font-family: "Open Sans";	font-size: 14px;	font-weight: bold;
+		text-transform: uppercase;
+	}
+	.form button:hover{
+		color: white;
+		box-shadow: 0px 0px 10px #000;
+	}
+	.form .message {
+		margin: 15px 0 0;
+		color: #b3b3b3;
+		font-size: 12px;
+	}
+	.form .message a {
+		color: #0c2461;
+		text-decoration: none;
+	}
+	.form .register-form {
+		display: none;
+	}
+
+	form{
+		margin: 0;
+	}
+	.container .info {
+		margin: 50px auto;
+		text-align: center;
+	}
+	.container .info h1 {
+		margin: 0 0 15px;
+		padding: 0;
+		font-size: 36px;
+		font-weight: 300;
+		color: white;
+	}
+	.container .info span {
+		color: white;
+		font-size: 12px;
+	}
+	.container .info span a {
+		color: white;
+		text-decoration: none;
+	}
+	.container .info span .fa {
+		color: #0c2461;
+	}
+	body {
+		font-family: "Roboto";
+		background: #fff;
+		height: auto;
+	}
+
+	.login-page-main{
+		position: relative;
+	}
+	.form h2{
+		color: white;
+		font-size: 28px;
+		margin: 0 0px 20px;
+	}
+	.form-group label{
+		color: white;
+		font-family: "Open Sans";
+		font-size: 14px;
+		margin-bottom: 10px;
+		font-weight: normal;
+	}
+	.form input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+		color: white;
+		opacity: 1;
+	}
+	.form input::-moz-placeholder { /* Firefox 19+ */
+		color: white;
+		opacity: 1;
+	}
+	.form input:-ms-input-placeholder { /* IE 10+ */
+		color: white;
+		opacity: 1;
+	}
+	label.check {
+		margin-bottom: 0;
+		font-weight: normal;
+		text-align: right;
+		display: block;
+		margin-top: 34px;
+		color: white;	font-family: "Open Sans";
+		font-size: 14px;
+	}
+	label.check input{
+		height: 14px;
+		width: 14px;
+		border-radius: 2px;
+		background-color: #D8D8D8;
+		margin: 0;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	h2 {
+		font-family: 'g-medium';
+	}
+	@media (max-width:767px){
+		.form {
+			width: 370px;
+			float: none;
+			margin: 20px auto 0px;
+		}
+		.login-page:after {
+			display: none;
+		}
+		.login-page .logo {
+			display: block;
+			text-align: center;
+		}
+		.login-page:before{
+			display: none;
+		}
+		.login-page {
+			padding-top: 15px;
+			position: static;
+			overflow: visible;
+		}
+	}
+	@media (max-width:480px){
+		.form {
+			width: 100%;
+		}
+		.form h2 {
+			font-size: 20px;
+		}
+		.form {
+			padding: 15px;
+		}
+	}
+</style>
+
+<div class="login-page">
+	<div class="container">
+		<div class="login-page-main">
+			<div class="logo">
+				<img width= 100%; src="img/img_logo_1.png">
+			</div>
+			<div class="form" dw-loading="login">
+				<h2 style="color: white">Login</h2>
+				<form name="loginForm" novalidate ng-submit="login(loginForm.$valid)">
+					<div class="form-group">
+						<label style="color: white">Email</label>
+						<input type="email" name="email" ng-model="user.email" class="form-control layout dyna-color1" ng-pattern="/^.+@.+\..+$/" required>
+						<div class="error" ng-show="loginForm.$submitted || loginForm.email.$dirty && loginForm.email.$invalid">
+							<small class="error text-danger" ng-show="loginForm.email.$error.required">Email is required.</small>
+							<small class="error text-danger" ng-show="loginForm.email.$invalid && !loginForm.email.$error.required">That is not a valid email. Please insert a valid email.</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<label style="color: white">Password</label>
+						<input type="password" class="form-control layout dyna-color1" name="password" ng-model="user.password" ng-space required>
+						<div class="error" ng-show="loginForm.$submitted || loginForm.password.$dirty && loginForm.password.$invalid">
+							<small class="error text-danger" ng-show="loginForm.password.$error.required">Password is required.</small>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary block login-button full-width m-b" ng-disabled="loginForm.$invalid">Login</button>
+				</form>
+				<!--<label class="check">-->
+				<!--<input type="checkbox" name="remember" data-ng-click="rememberMe()" data-ng-model="remember"> &nbsp; Remember Me-->
+				<!--</label>-->
+			</div>
+		</div>
+	</div>
+</div>
+
+

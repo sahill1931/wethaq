@@ -1,0 +1,459 @@
+<div ng-show="addView">
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="marginB30">
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-7"><h2>Add Admin</h2></div>
+    <div class="col-md-6 col-sm-6 col-xs-7"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listAdminButton()">List Admin</button></div>
+</div>
+</div>
+<div class="row">
+        <div class="col-md-8" dw-loading="AddSubLoad">
+            <div class="ibox float-e-margins">
+                <div>
+                    <form novalidate name="myForm" ng-submit="addSubSubmit(myForm.$valid)" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Name*</label>
+                                <div class="form-group">
+                                    <ng-form name="Name">
+                                        <input type="text" name="Name"
+                                               class="form-control" ng-model="addSub.Name" required>
+                                        <div class="error"
+                                             ng-show="Name.$submitted || Name.Name.$dirty && Name.Name.$invalid">
+                                            <small class="error text-danger" ng-show="Name.Name.$error.required">
+                                                Field is required.
+                                            </small>
+                                        </div>
+                                    </ng-form>
+                                </div>
+                                <label>Email</label>
+                                <div class="form-group">
+                                    <ng-form name="email">
+                                        <input type="text" name="email"
+                                               class="form-control" ng-model="addSub.Email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z-]+\.[a-z.]{2,5}$/">
+                                        <div class="error"
+                                        ng-show="email.$submitted || email.email.$dirty && email.email.$invalid">
+                                        <small class="error text-danger" ng-show="email.email.$error.required">
+                                        Field is required.
+                                        </small>
+                                        </div>
+                                    </ng-form>
+                                </div>
+                                <label>Password*</label>
+                                <div class="form-group">
+                                    <ng-form name="password">
+                                        <input type="password" name="password"
+                                               class="form-control" ng-model="addSub.Password" ng-minlength="6" ng-maxlength="15" required>
+                                        <div class="error"
+                                             ng-show="password.$submitted || password.password.$dirty && password.password.$invalid">
+                                            <small class="error text-danger" ng-show="password.password.$error.required">
+                                                Field is required.
+                                            </small>
+                                        </div>
+                                    </ng-form>
+                                </div>
+                                <label>Categories</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Add
+                                        <input type="checkbox" ng-model="addSub.Category1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Edit
+                                        <input type="checkbox" ng-model="addSub.Category2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Category3">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Delete
+                                        <input type="checkbox" ng-model="addSub.Category4">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                                <label>Packages</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Add
+                                        <input type="checkbox" ng-model="addSub.Package1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Edit
+                                        <input type="checkbox" ng-model="addSub.Package2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Package3">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Delete
+                                        <input type="checkbox" ng-model="addSub.Package4">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                                <label>Users</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Add
+                                        <input type="checkbox" ng-model="addSub.User1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Edit
+                                        <input type="checkbox" ng-model="addSub.User2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.User3">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Block/Unblock
+                                        <input type="checkbox" ng-model="addSub.User4">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+
+                                <label>Templates</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Add
+                                        <input type="checkbox" ng-model="addSub.Template1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Edit
+                                        <input type="checkbox" ng-model="addSub.Template2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Template3">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Delete
+                                        <input type="checkbox" ng-model="addSub.Template4">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+
+
+                                <label>Events</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Event1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+
+                                <label>Gaurds</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Add
+                                        <input type="checkbox" ng-model="addSub.Gaurd4">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Edit
+                                        <input type="checkbox" ng-model="addSub.Gaurd1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Gaurd2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Block/Unblock
+                                        <input type="checkbox" ng-model="addSub.Gaurd3">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+
+
+                                <label>Promo</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Add
+                                        <input type="checkbox" ng-model="addSub.Promo1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Promo2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Delete
+                                        <input type="checkbox" ng-model="addSub.Promo3">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                                <label>Chat</label>
+                                <div class="form-group">
+                                    <div class="clearfix"></div>
+                                    <label class="cust-ckbx">Only View
+                                        <input type="checkbox" ng-checked="true" ng-model="addSub.Chat1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="cust-ckbx">Chat Access
+                                        <input type="checkbox" ng-model="addSub.Chat2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                        ng-disabled="myForm.$invalid">
+                                    <strong>Submit</strong>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div ng-show="editView">
+    <div class="row wrapper white-bg page-heading">
+        <button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listAdminButton()">List Admin</button>
+        <h2>Edit/View Admin</h2>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-8" dw-loading="EditSubLoad">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form novalidate name="myFormedit" ng-submit="editSubSubmit(myFormedit.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Name*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Name">
+                                            <input type="text" name="Name"
+                                                   class="form-control" ng-model="editSub.Name" readonly>
+                                        </ng-form>
+                                    </div>
+                                    <label>Email</label>
+                                    <div class="form-group">
+                                        <ng-form name="email">
+                                            <input type="text" name="email"
+                                                   class="form-control" ng-model="editSub.Email" readonly>
+                                        </ng-form>
+                                    </div>
+                                    <label>Password*</label>
+                                    <div class="form-group">
+                                        <ng-form name="password">
+                                            <input type="password" name="password"
+                                                   class="form-control" ng-model="editSub.Password" readonly>
+                                        </ng-form>
+                                    </div>
+                                    <label>Categories</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Add
+                                            <input type="checkbox" ng-model="editSub.Category1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Edit
+                                            <input type="checkbox" ng-model="editSub.Category2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Category3">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Delete
+                                            <input type="checkbox" ng-model="editSub.Category4">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <label>Packages</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Add
+                                            <input type="checkbox" ng-model="editSub.Package1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Edit
+                                            <input type="checkbox" ng-model="editSub.Package2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Package3">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Delete
+                                            <input type="checkbox" ng-model="editSub.Package4">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <label>Users</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Add
+                                            <input type="checkbox" ng-model="editSub.User1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Edit
+                                            <input type="checkbox" ng-model="editSub.User2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.User3">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Block/Unblock
+                                            <input type="checkbox" ng-model="editSub.User4">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+
+                                    <label>Templates</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Add
+                                            <input type="checkbox" ng-model="editSub.Template1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Edit
+                                            <input type="checkbox" ng-model="editSub.Template2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Template3">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Delete
+                                            <input type="checkbox" ng-model="editSub.Template4">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+
+
+                                    <label>Events</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Event1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+
+                                    <label>Gaurds</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Add
+                                            <input type="checkbox" ng-model="editSub.Gaurd4">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Edit
+                                            <input type="checkbox" ng-model="editSub.Gaurd1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Gaurd2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Block/Unblock
+                                            <input type="checkbox" ng-model="editSub.Gaurd3">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+
+
+                                    <label>Promo</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Add
+                                            <input type="checkbox" ng-model="editSub.Promo1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Promo2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Delete
+                                            <input type="checkbox" ng-model="editSub.Promo3">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <label>Chat</label>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+                                        <label class="cust-ckbx">Only View
+                                            <input type="checkbox" ng-checked="true" ng-model="editSub.Chat1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="cust-ckbx">Chat Access
+                                            <input type="checkbox" ng-model="editSub.Chat2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myFormedit.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="listView">
+  
+
+  
+        <div dw-loading="AddAdminLoad">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                  <div class="marginB30">
+    <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-7"> 
+    <h2>List Admins</h2>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+    <button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="addAdminButton()">Add Admin</button>
+    </div>
+    </div>
+    </div>
+                <h2 class="text-center text-success" ng-if="ListAdmin.length == 0">No Admin currently</h2>
+                  <div class="row">
+                <div class="col-lg-3" ng-repeat="data in ListAdmin">
+                    <div class="widget blue-bg admin-list">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <img ng-src="{{data.profilePicture.thumbnail || 'img/no-image-available.jpg'}}" class="profile-img1 text-center">
+                                <h3 class="disSize font-bold business-data faIconcolor"> {{data.name}} </h3>
+                                <hr>
+                                <span class="font-bold business-data">{{data.email}}</span>
+                                <span class="font-bold business-data">{{data.registrationDate | date :  "MMMM d, y"}}</span>
+                                <span style="font-size: 16px">
+                                    <a ng-click="editAdminButton(data)" class="text-success">Edit/View</a> &nbsp;
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

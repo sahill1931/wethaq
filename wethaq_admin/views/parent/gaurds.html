@@ -1,0 +1,238 @@
+<div ng-show="editView">
+  
+    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="marginB30">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7">
+         <h2>Edit Guard</h2>
+         </div>
+         <div class="col-md-6 col-sm-6 col-xs-5">
+         <button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listGaurdButton()">List Guards</button>
+         </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" dw-loading="EditGaurdLoad">
+                <div class="ibox float-e-margins">
+                   
+                    <div>
+                        <form novalidate name="myFormedit" ng-submit="editGaurdSubmit(myFormedit.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Name*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Name">
+                                            <input type="text" name="Name"
+                                                   class="form-control" ng-model="edit.Name" required>
+                                            <div class="error"
+                                                 ng-show="Name.$submitted || Name.Name.$dirty && Name.Name.$invalid">
+                                                <small class="error text-danger" ng-show="Name.Name.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>Email</label>
+                                    <div class="form-group">
+                                        <ng-form name="email">
+                                            <input type="text" name="email"
+                                                   class="form-control" ng-model="edit.Email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z-]+\.[a-z.]{2,5}$/">
+                                            <!--<div class="error"-->
+                                            <!--ng-show="email.$submitted || email.email.$dirty && email.email.$invalid">-->
+                                            <!--<small class="error text-danger" ng-show="email.email.$error.required">-->
+                                            <!--Field is required.-->
+                                            <!--</small>-->
+                                            <!--</div>-->
+                                        </ng-form>
+                                    </div>
+                                    <!--<label>Gender*</label>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<ng-form name="gender">-->
+                                            <!--<select name="gender" placeholder="Select Gender" class="form-control" ng-model="edit.Gender" required>-->
+                                                <!--<option value="Male" ng-selected="edit.Gender == 'Male'">Male</option>-->
+                                                <!--<option value="Female" ng-selected="edit.Gender == 'Female'">Female</option>-->
+                                            <!--</select>-->
+                                            <!--<div class="error"-->
+                                                 <!--ng-show="gender.$submitted || gender.gender.$dirty && gender.gender.$invalid">-->
+                                                <!--<small class="error text-danger" ng-show="gender.gender.$error.required">-->
+                                                    <!--Field is required.-->
+                                                <!--</small>-->
+                                            <!--</div>-->
+                                        <!--</ng-form>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit" ng-disabled="myFormedit.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="addView">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="marginB30">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>Add Guard</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5">
+        <button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listGaurdButton()">List Guards</button>
+        </div>
+    </div>
+    </div>
+        <div class="row">
+            <div class="col-md-8" dw-loading="AddGaurdLoad">
+                <div class="ibox float-e-margins">
+              
+                    <div>
+                        <form novalidate name="myForm" ng-submit="addGaurdSubmit(myForm.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Name*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Name">
+                                            <input type="text" name="Name"
+                                                   class="form-control" ng-model="addGaurd.Name" required>
+                                            <div class="error"
+                                                 ng-show="Name.$submitted || Name.Name.$dirty && Name.Name.$invalid">
+                                                <small class="error text-danger" ng-show="Name.Name.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+
+                                    <label>Contact*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Contact">
+                                            <input type="text" name="Contact"
+                                                   class="form-control" ng-model="addGaurd.Contact" ng-minlength="6" ng-maxlength="15" numbers-only required>
+                                            <div class="error"
+                                                 ng-show="Contact.$submitted || Contact.Contact.$dirty && Contact.Contact.$invalid">
+                                                <small class="error text-danger" ng-show="Contact.Contact.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+
+                                    <label>Email</label>
+                                    <div class="form-group">
+                                        <ng-form name="email">
+                                            <input type="text" name="email"
+                                                   class="form-control" ng-model="addGaurd.Email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z-]+\.[a-z.]{2,5}$/">
+                                            <!--<div class="error"-->
+                                            <!--ng-show="email.$submitted || email.email.$dirty && email.email.$invalid">-->
+                                            <!--<small class="error text-danger" ng-show="email.email.$error.required">-->
+                                            <!--Field is required.-->
+                                            <!--</small>-->
+                                            <!--</div>-->
+                                        </ng-form>
+                                    </div>
+
+                                    <label>Password*</label>
+                                    <div class="form-group">
+                                        <ng-form name="password">
+                                            <input type="text" name="password"
+                                                   class="form-control" ng-model="addGaurd.Password" ng-minlength="6" ng-maxlength="15" required>
+                                            <div class="error"
+                                                 ng-show="password.$submitted || password.password.$dirty && password.password.$invalid">
+                                                <small class="error text-danger" ng-show="password.password.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+
+                                    <!--<label>Gender*</label>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<ng-form name="gender">-->
+                                            <!--<select name="gender" placeholder="Select Gender" class="form-control" ng-model="addGaurd.Gender" required>-->
+                                                <!--<option value="" disabled selected>Select Gender</option>-->
+                                                <!--<option value="Male">Male</option>-->
+                                                <!--<option value="Female">Female</option>-->
+                                            <!--</select>-->
+                                            <!--<div class="error"-->
+                                                 <!--ng-show="gender.$submitted || gender.gender.$dirty && gender.gender.$invalid">-->
+                                                <!--<small class="error text-danger" ng-show="gender.gender.$error.required">-->
+                                                    <!--Field is required.-->
+                                                <!--</small>-->
+                                            <!--</div>-->
+                                        <!--</ng-form>-->
+                                    <!--</div>-->
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myForm.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="listView" ng-if="guardStorage.view == false">
+    <h2 class="text-center">You Don't Have Access</h2>
+</div>
+<div ng-show="listView" ng-if="guardStorage.view == true">
+  
+
+    <div dw-loading="GaurdsLoad">
+        <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="marginB30">
+          <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>List Guards</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5">
+        <button ng-if="guardStorage.add == true" class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="addGaurdButton()">Add Gaurd</button></div>
+        </div>
+   </div>
+            <h2 class="text-center text-success" ng-if="ListGaurds.length == 0">No Gaurds currently</h2>
+            <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="data in ListGaurds">
+                <div class="widget blue-bg gaurd-list">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <img ng-src="{{data.profilePicture.thumbnail || 'img/no-image-available.jpg'}}" class="profile-img1 text-center">
+                            <h3 class="disSize font-bold business-data faIconcolor"> {{data.name}} </h3>
+                            <hr>
+                            <span class="font-bold business-data">{{data.phoneNo}}</span>
+                            <span class="font-bold business-data">Language: {{data.language}}</span>
+                            <span class="font-bold business-data" ng-if="!!data.createdAt">Created At: {{(data.createdAt | date :  "MMMM d, y")}}</span>
+                            <br>
+                            <br>
+
+                            <span style="font-size: 16px">
+                                    <a ng-if="guardStorage.edit == true" ng-click="editGaurdButton(data)" class="text-success">Edit</a> &nbsp;
+                                  <a ng-if="data.isBlocked && guardStorage.block == true" class="text-warning" ng-click="GuardBlocker(data._id, $index, 'unblock', false)">Unblock</a>
+                                    <a ng-if="!(data.isBlocked) && guardStorage.block == true" class="text-danger" ng-click="GuardBlocker(data._id, $index, 'block', true)">Block</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="ListGaurds.length < ListGaurdsCount && ListGaurds.length!=0">
+                <div class="col-md-12">
+                    <button class="pull-right btn btn-primary" type="button" style="margin-bottom: 20px;" ng-click="listGaurdsFunction(newLimit3)">More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

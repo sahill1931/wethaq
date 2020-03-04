@@ -1,0 +1,199 @@
+<div ng-show="editView">
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="marginB30">
+            <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>Edit Package</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listPackageButton()">List Packages</button></div>
+    </div>
+    </div>
+        <div class="row">
+            <div class="col-md-8" dw-loading="EditPackageLoad">
+                <div class="ibox float-e-margins">
+                  <div>
+                        <form novalidate name="myFormedit" ng-submit="editPackageSubmit(myFormedit.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Total SMS*</label>
+                                    <div class="form-group">
+                                        <ng-form name="SMS">
+                                            <input type="text" name="SMS"
+                                                   class="form-control" ng-model="edit.SMS" min="1" numbers-only required>
+                                            <div class="error"
+                                                 ng-show="SMS.$submitted || SMS.SMS.$dirty && SMS.SMS.$invalid">
+                                                <small class="error text-danger" ng-show="SMS.SMS.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>Total Price*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Price">
+                                            <input type="text" name="Price"
+                                                   class="form-control" ng-model="edit.Price" numbers-only required>
+                                            <div class="error"
+                                                 ng-show="Price.$submitted || Price.Price.$dirty && Price.Price.$invalid">
+                                                <small class="error text-danger" ng-show="Price.Price.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit" ng-disabled="myFormedit.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div ng-show="addView">
+  
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="marginB30">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>Add Package</h2> </div>
+        <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listPackageButton()">List Packages</button></div>
+       
+    </div>
+    </div>
+        <div class="row">
+            <div class="col-md-8" dw-loading="AddPackageLoad">
+                <div class="ibox float-e-margins">
+                    <!--<div class="ibox-title dyna-color">-->
+                        <!--<h5>Add a Package</h5>-->
+                    <!--</div>-->
+                    <div>
+                        <form novalidate name="myForm" ng-submit="addPackageSubmit(myForm.$valid)" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Total SMS*</label>
+                                    <div class="form-group">
+                                        <ng-form name="SMS">
+                                            <input type="text" name="SMS"
+                                                   class="form-control" ng-model="addPackage.SMS" min="1" numbers-only required>
+                                            <div class="error"
+                                                 ng-show="SMS.$submitted || SMS.SMS.$dirty && SMS.SMS.$invalid">
+                                                <small class="error text-danger" ng-show="SMS.SMS.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                    <label>Total Price*</label>
+                                    <div class="form-group">
+                                        <ng-form name="Price">
+                                            <input type="text" name="Price"
+                                                   class="form-control" ng-model="addPackage.Price" numbers-only required>
+                                            <div class="error"
+                                                 ng-show="Price.$submitted || Price.Price.$dirty && Price.Price.$invalid">
+                                                <small class="error text-danger" ng-show="Price.Price.$error.required">
+                                                    Field is required.
+                                                </small>
+                                            </div>
+                                        </ng-form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs shadow" type="submit"
+                                            ng-disabled="myForm.$invalid">
+                                        <strong>Submit</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="listView" ng-if="packageStorage.view == false">
+    <h2 class="text-center">You Don't Have Access</h2>
+</div>
+<div ng-show="listView" ng-if="packageStorage.view == true">
+
+  
+        <div dw-loading="PackageLoad">
+            <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="marginB30">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>List Packages</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5"> 
+        <button ng-if="packageStorage.add == true" class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="addPackageButton()">Add Package</button></div>
+      
+    </div>
+    </div>
+                <h2 class="text-center text-success" ng-if="ListPackage.length == 0">No Packages currently</h2>
+                  <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="data in ListPackage">
+                    <div class="widget blue-bg">
+                        <div class="text-center">
+                        <div class="row">
+                        
+                                <div class="col-xs-6 text-center">
+                                    <i class="fa fa-inbox faIcon fa-3x">
+                                        <h4 class="disSize font-bold business-data faIconcolor"> {{data.totalSms}} </h4>
+                                    </i>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <i class="fa fa-money faIcon fa-3x">
+                                        <h4 class="disSize font-bold business-data faIconcolor" ng-if="data.totalPrice == 0"> Free </h4>
+                                        <h4 class="disSize font-bold business-data faIconcolor" ng-if="data.totalPrice != 0"> {{data.totalPrice}} </h4>
+                                    </i>
+                                </div>
+                                <div class="col-xs-12 text-center">
+                                <hr>
+                                <span>
+                                    <a ng-if="packageStorage.edit == true" ng-click="editPackageButton(data)" class="text-success">Edit</a> &nbsp;
+                                    <a ng-if="packageStorage.delete == true" ng-click="deletePackage(data._id)" class="text-danger">Delete</a>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!--<div class="table-responsive" ng-if="ListPackage.length != 0">-->
+                <!--<table id="PackageLoad" class="table table-striped dataTables-example">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                <!--<th>Sr. No.</th>-->
+                <!--<th>Total SMS</th>-->
+                <!--<th>Total Price</th>-->
+                <!--<th>Edit</th>-->
+                <!--<th>Delete</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr ng-repeat="data in ListPackage">-->
+                <!--<td>{{$index+1}}</td>-->
+                <!--<td>{{data.totalSms}}</td>-->
+                <!--<td>{{data.totalPrice}}</td>-->
+                <!--<td><a ng-click="editPackageButton(data)"><i class="fa fa-pencil fa-2x text-navy"></i></a></td>-->
+                <!--<td><a ng-click="deletePackage(data._id)"><i class="fa fa-trash-o fa-2x text-danger"></i></a></td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+                <!--</table>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>

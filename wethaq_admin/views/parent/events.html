@@ -1,0 +1,434 @@
+<div ng-show="listView && eventStorage.view == false" >
+    <h2 class="text-center">You Don't Have Access</h2>
+</div>
+<div ng-show="listView && eventStorage.view == true">
+  <div class="wrapper wrapper-content animated fadeInUp">
+<div class="marginB30">
+    <div class="row">
+    <div class="col-md-7 col-sm-7 col-xs-2">
+        <h2>{{listOptions.userName || 'List'}} Events</h2>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-8  col-xs-5">
+            <div class="col-sm-6">
+                <label>Created From</label>
+                <input type="text" id="datepicker" class="cursor start-picker" readonly>
+            </div>
+
+            <div class="col-sm-6">
+                <label>Started From</label>
+                <input type="text" id="datepicker2" class="cursor start-picker" readonly>
+            </div>
+
+            <div class="col-sm-6">
+                <label>Created To</label>
+                <input type="text" id="datepicker1" class="cursor start-picker" readonly>
+            </div>
+
+
+            <div class="col-sm-6">
+                <label>Started To</label>
+                <input type="text" id="datepicker3" class="cursor start-picker" readonly>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" value="Go" class="go-btn" ng-click="gobtn()">Go</button>
+                <!--<button type="button" value="Go" class="go-btn" ng-click="reset()">Reset</button>-->
+            </div>
+        </div>
+     <div class="col-md-3 col-sm-3  col-xs-5">
+            <select name="TemplateName" placeholder="Select Type"
+                    class="form-control chosen-select selectmargin" ng-model="eventType" ng-change="filter()" required>
+                <option value="" selected>All</option>
+                <option value="past">Past</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+            </select>
+        </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div dw-loading="EventsLoad">
+          
+                <h2 class="text-center text-success" ng-if="ListEvents.length == 0">No Events currently</h2>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ng-repeat="data in ListEvents">
+                    <a ng-click="detailEventButton(data)">
+                        <div class="widget blue-bg user-list">
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <img ng-src="{{data.imageUrl || 'img/no-image-available.jpg'}}" class="profile-img1 text-center">
+                                    <h3 class="disSize font-bold business-data faIconcolor"> {{data.title}} </h3>
+                                    <label style="padding: 10px 0 0;color: #000 !important;">{{data.categoryId.name[0]}}
+
+                                    </label>
+                                    <hr>
+                                    <div class="col-xs-6 text-center">
+                                        <i class="fa fa-inbox faIcon fa-3x">
+                                            <h4 class="disSize font-bold business-data faIconcolor"> {{data.totalSms}} </h4>
+                                        </i>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <i class="fa fa-money faIcon fa-3x">
+                                            <h4 class="disSize font-bold business-data faIconcolor"> {{data.totalPrice}} </h4>
+                                        </i>
+                                    </div>
+                                    <h3 class="font-bold business-data" style="color: #000000cc;">Start At</h3>
+                                    <span class="font-bold business-data">{{data.startAt  | date :  "MMMM d, y (HH:mm a)"}}</span>
+                                    <h3 class="font-bold business-data" style="color: #000000cc;">End At</h3>
+                                    <span class="font-bold business-data">{{data.endAt  | date :  "MMMM d, y (HH:mm a)"}}</span>
+                                    <!--<span class="font-bold business-data">Owner:{{data.createdBy.name}} ({{data.createdBy.phoneNo}})</span>-->
+
+                                    <br>
+                                    <small>Reminder(s) {{data.reminders || 0}}</small>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="row" ng-if="ListEvents.length < ListEventsCount && ListEvents.length!=0">
+                    <div class="col-md-12">
+                        <button class="pull-left btn btn-primary" type="button" style="margin-bottom: 20px; margin-left:15px;" ng-click="more()">More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="detailView">
+<div class="marginB30">
+    <div class="row">
+
+        <div class="col-md-6 col-sm-6 col-xs-7"><h2>Detail Event1</h2></div>
+        <div class="col-md-6 col-sm-6 col-xs-5"><button class="pull-right btn btn-primary" type="button" style="margin-top: 20px;" ng-click="listEventButton()">List Events</button></div>
+        
+    </div>
+</div>
+
+ <div class="row" style="margin-top:10px">
+    <div class="col-md-6">
+     Event image:
+     <img data-toggle="modal" data-target="#myModal" src="{{detailsOfEvent.imageUrl}}" alt="No image" style="height:100px; width:100px;">
+
+    </div>
+     <div class="col-md-6">
+         <p>Message : {{detailsOfEvent.message}}</p>
+     </div>
+ </div>
+    <div class="row">
+        <div class="col-lg-12" dw-loading="EventsLoad">
+            <!--<div class="wrapper wrapper-content animated fadeInUp">-->
+            <!--</div>-->
+            <div class="row m-b-lg m-t-lg">
+                <div class="col-md-6">
+                    <div class="profile-image">
+                        <img ng-src="{{detailsOfEvent.createdBy.profilePicture.thumbnail || 'img/no-image-available.jpg'}}" class="img-circle circle-border m-b-md" alt="profile">
+                    </div>
+                    <div class="profile-info">
+                        <div class="">
+                            <div>
+                                <h2 class="no-margins">
+                                    {{detailsOfEvent.createdBy.name}}
+                                </h2>
+                                <br>
+                                <small>Address <strong>{{detailsOfEvent.address}}</strong></small><br>
+                                <small>Category Price <strong>{{detailsOfEvent.categoryPrice}}</strong></small>&nbsp;&nbsp;
+                                <small>SMS Price <strong>{{detailsOfEvent.smsPrice}}</strong></small>&nbsp;&nbsp;
+                                <small>Total Price <strong>{{detailsOfEvent.totalPrice}}</strong></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <table class="table small m-b-xs">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Contact <strong>{{detailsOfEvent.createdBy.phoneNo}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Email <strong>{{detailsOfEvent.createdBy.email}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    DOB <strong>{{detailsOfEvent.createdBy.dob | date}}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3" >
+                    <small>Created At</small>
+                    <h4 class="no-margins">{{detailsOfEvent.createdAt  | date : "medium"}}</h4>
+                    <button ng-hide="detailsOfEvent.isBlocked" class=" btn btn-primary" type="button"
+                            ng-click="openModals()" style="margin-top: 20px;text-align: left">Delete</button>
+
+                    <button ng-show="detailsOfEvent.isBlocked" class=" btn btn-danger" type="button" style="margin-top: 20px;text-align: left">Deleted</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <div class="event-details">
+                            <label>Accepted</label>
+                            {{detailsOfEvent.accepted}}/{{detailsOfEvent.total}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event-details">
+                            <label>Rejected</label>
+                            {{detailsOfEvent.rejected}}/{{detailsOfEvent.total}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event-details">
+                            <label>Total Price</label>
+                            {{detailsOfEvent.totalPrice}}/{{detailsOfEvent.total}}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <label>Guard Details </label>
+                        <a class="btn" ng-click="addmoreguards()">Add more</a>
+
+                    </div>
+                    <div class="guard-details">
+                        <div class="col-md-12">
+                           <table class="table table-responsive">
+                               <tr><th>Name</th><th>Phone no</th><th>Status</th>
+                               <tr ng-repeat="item in detailsOfEvent.guards">
+                               <td>{{item.userId.name || '-'}}</td>
+                               <td>{{item.phoneNo || '-'}}</td>
+                               <td>{{item.status || '-'}}</td>
+                           </tr>
+                           </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+                <div class="guest-list">
+                      <div class="marginB30">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-7">
+                        <h3>Guest List
+                            <a ng-click="setexceldataguest(detailsOfEvent.invites)">Export </a>
+                        </h3>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                    <button ng-click="addmoreguests()" class="btn btn-primary pull-right">Add more</button>
+                    </div>
+
+                </div>
+                    
+              </div>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Name</th>
+                                    <th>Phone No</th>
+                                    <th>QR Code</th>
+                                    <th>Status</th>
+                                    <th>Checkin Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="data in detailsOfEvent.invites">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{data.name}}</td>
+                                    <td>{{data.phoneNo}}</td>
+                                    <td>
+                                       <span ng-show="detailsOfEvent.isQrCode == true">
+                                           <i class="fa fa-check" ng-click="showQR()"></i>
+                                       </span>
+                                        <span ng-show="detailsOfEvent.isQrCode != true">
+                                           <i class="fa fa-times-circle"></i>
+                                       </span>
+                                    </td>
+                                    <td>{{data.status}}</td>
+                                    <td>
+                                       <span ng-show="!data.checkedAt || data.checkedAt == 0">
+                                          Pending/No show
+                                       </span>
+                                        <span ng-show="data.checkedAt>0">
+                                         Attended
+                                       </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="height:500px; overflow: auto">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Event image</h4>
+            </div>
+            <div class="modal-body">
+              <img style="width:100%;" src="{{detailsOfEvent.imageUrl}}" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="template.html">
+    <form name="myForm" ng-submit="submitReason(myForm.$valid)" novalidate>
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="closemusic()">&times;</button>
+            <h4 class="modal-title">Enter Reason</h4>
+        </div>
+        <div class="modal-body">
+            <input class="form-control" ng-model="reason" required name="reason" placeholder="Reason">
+            <div class="error-danger" ng-show="myForm.$submitted || myForm.reason.$dirty && myForm.reason.$invalid">
+                <small class="error text-danger" ng-show="myForm.reason.$error.required">
+                    Reason is required.
+                </small>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-default" ng-click="closemusic()">Close</button>
+        </div>
+    </form>
+</script>
+
+
+<script type="text/ng-template" id="addmoreguests.html">
+    <form dw-loading="addguest" name="myForm" ng-submit="addguests(myForm.$valid)">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()">&times;</button>
+            <h4 class="modal-title">Add</h4>
+        </div>
+          <div class="modal-body">
+        <div class="form-group">
+            <input type="text" required class="form-control" ng-model="guest.name" required name="name" placeholder="Name">
+            <!--<div class="error-danger" ng-show="myForm.$submitted || myForm.reason.$dirty && myForm.reason.$invalid">-->
+                <!--<small class="error text-danger" ng-show="myForm.reason.$error.required">-->
+                    <!--Reason is required.-->
+                <!--</small>-->
+            <!--</div>-->
+        </div>
+         <div class="form-group">
+            <input type='email' required class="form-control" ng-model="guest.email" required name="guest.email" placeholder="Email">
+            <!--<div class="error-danger" ng-show="myForm.$submitted || myForm.reason.$dirty && myForm.reason.$invalid">-->
+            <!--<small class="error text-danger" ng-show="myForm.reason.$error.required">-->
+            <!--Reason is required.-->
+            <!--</small>-->
+            <!--</div>-->
+        </div>
+        <div class="form-group">
+            <input type="text" numbers-only required min="0" class="form-control" ng-model="guest.phoneNo"  name="phoneNo" placeholder="Phone No">
+            <!--<div class="error-danger" ng-show="myForm.$submitted || myForm.reason.$dirty && myForm.reason.$invalid">-->
+            <!--<small class="error text-danger" ng-show="myForm.reason.$error.required">-->
+            <!--Reason is required.-->
+            <!--</small>-->
+            <!--</div>-->
+        </div>
+        </div>
+        <div class="modal-footer">
+           <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+            <div class="text-center" style="margin-bottom:15px"><button type="submit" class="btn btn-default">Click to Add more</button></div>
+            </div>
+             <div class="col-md-4 col-sm-4 col-xs-12"> 
+                <div class="text-center" style="margin-bottom:15px"><button type="button" ng-click="submitdata()" ng-disabled="!guestlist.length" class="btn btn-primary">Submit</button></div>
+            </div>
+             <div class="col-md-4 col-sm-4 col-xs-12"> 
+            <div class="text-center"><button type="button" class="btn btn-default" ng-click="cancel()">Close</button></div>
+            </div>
+            </div>
+        </div>
+        <h3 ng-if="!guestlist.length"  style="padding:10px;color:red; text-align:center;" >Add atleast 1 to submit</h3>
+
+    </form>
+
+    <ul><li ng-repeat="data in guestlist track by $index">{{data.name}}<a style="margin-left: 10px" ng-click="guestlistdelete($index)">x</a></li></ul>
+
+
+</script>
+
+<script type="text/ng-template" id="addmoreguards.html">
+    <form dw-loading="addguard" name="myForm" ng-submit="addguards(myForm.$valid)">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()">&times;</button>
+            <h4 class="modal-title">Add</h4>
+        </div>
+          <div class="modal-body">
+              <p class="alert alert-info">Enter phone no along with country code eg. (966)</p>
+        <div class="form-group">
+            <input type="text" numbers-only required min="0" class="form-control" ng-model="guard.phoneNo"  name="phoneNo" placeholder="Phone No">
+            <!--<div class="error-danger" ng-show="myForm.$submitted || myForm.reason.$dirty && myForm.reason.$invalid">-->
+            <!--<small class="error text-danger" ng-show="myForm.reason.$error.required">-->
+            <!--Reason is required.-->
+            <!--</small>-->
+            <!--</div>-->
+        </div>
+        </div>
+        <div class="modal-footer">
+           <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="text-center" style="margin-bottom:15px"><button type="submit" class="btn btn-default">Submit</button></div>
+            </div>
+             <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+                <!--<div class="text-center" style="margin-bottom:15px"><button type="button" ng-click="submitdata()" ng-disabled="!guardlist.length" class="btn btn-primary">Submit</button></div>-->
+            <!--</div>-->
+             <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="text-center"><button type="button" class="btn btn-default" ng-click="cancel()">Close</button></div>
+            </div>
+            </div>
+
+            <!--<ul style="list-style: none" class="alert alert-info">-->
+            <!--&lt;!&ndash;<li>Add more data to add more guards </li>&ndash;&gt;-->
+            <!--<li>Submit to save data into system </li>-->
+            <!--</ul>-->
+
+        </div>
+        <!--<h3 ng-if="!guardlist.length"  style="padding:10px;color:red; text-align:center;" >Add to submit</h3>-->
+
+    </form>
+
+    <!--<ul><li ng-repeat="data in guardlist track by $index">{{data.phoneNo}}<a style="margin-left: 10px" ng-click="guardlistdelete($index)">x</a></li></ul>-->
+
+
+</script>
+
+
+<script type="text/ng-template" id="qrcode.html">
+    <div class="modal-body">
+        <img ng-src="{{detailsOfEvent.invites[0].qr}}" />
+    </div>
+</script>

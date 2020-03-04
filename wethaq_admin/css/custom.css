@@ -1,0 +1,340 @@
+/* shadow class for all elements */
+
+.shadow{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.langButton {
+    text-align: center;
+}
+.langButton button {
+    width: 50%;
+}
+/* login page */
+
+.loginscreen.middle-box {
+    width: 350px;
+}
+.descript
+{
+    word-break: break-word;
+}
+#login-padding{
+    padding: 5% 5% 5% 5%;
+}
+.multiselect-parent.btn-group.dropdown-multiselect {
+    width: 100%;
+    margin: 0 0 10px 0;
+    border: 1px solid #e5e6e7;
+}
+
+.middle-box h1 {
+    font-size: 100px;
+    color: white;
+    letter-spacing: -5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+/*.pace-done {
+    background-color: whitesmoke !important;
+}
+.pace-running {
+    background-color: whitesmoke !important;
+}*/
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 0 0 15px;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.modelWidth{
+    width: 50% !important;
+}
+.b-l{
+    border-left: 1px solid #e7eaec;
+}
+.bred{
+    background-color: #e74c3c;
+}
+.bgreen{
+    background-color: #27ae60;
+}
+.byellow{
+    background-color: #f1c40f;
+}
+.thumbnail{
+    width: auto;
+    height: 250px;
+}
+.thumbnail1{
+    width: 225px;
+    height: 200px;
+}
+
+.custom-lightbox{
+    margin-left: -2%;
+}
+
+body.stop-scrolling {
+    height: 100%;
+    /*overflow: inherit !important;*/
+}
+
+.chillax-logo{
+    font-size: 40px;
+    color: #1ab394;
+    letter-spacing: 0px;
+    font-weight: 800;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
+.chillax-logo-small{
+    font-size: 25px;
+    color: #1ab394;
+    letter-spacing: 0px;
+    font-weight: 800;
+    margin-bottom: -10px;
+    margin-top: -10px;
+    margin-left: 3px;
+}
+
+.chillax-logo-external{
+    font-size: 45px;
+    color: #1ab394;
+    letter-spacing: 0px;
+    font-weight: 800;
+    margin-top: -7%;
+    padding-left: 2%;
+}
+
+.blue-bg {
+    background-color: white;
+    color: #00000099;
+
+    border: 2px solid #eeeeee;
+    /*background-color: #eceeef;*/
+    /*color: #0163ac;*/
+    /*box-shadow: 5px 5px 10px #0163ac;*/
+}
+
+.box-header {
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 30px;
+    padding: 10px 15px;
+    overflow: hidden;
+}
+
+.logo-img {
+    text-align: center;
+    margin: 10px 0px;
+}
+
+.widget {
+    border-radius: 5px;
+    /*padding: 30px 20px;*/
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.table .table{
+    margin-bottom: 0px;
+}
+
+.insideTable{
+    border-top: 2px solid #1ab394 !important;
+    border-left: 2px solid #1ab394 !important;
+    border-right: 2px solid #1ab394 !important;
+    border-bottom: 2px solid #1ab394 !important;
+    border-right-width: none !important;
+    border-bottom-width: none !important;
+}
+.loginscreen input{
+    color: black;
+}
+
+.otherImg {
+    float: left;
+    margin: 2px 10px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.changeColor td button{
+    margin: 0px !important;
+    border-color : #e5e6e7 !important;
+    background-color : white !important;
+    color : black !important;
+
+}
+.redThumb {
+    color: red;
+}
+.greenThumb {
+    color: green;
+}
+.m-t-22{
+    margin-top: 22px;
+}
+.stars-css{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.37);
+    margin-bottom: 10px;
+}
+.applyBtn{
+    background: linear-gradient(to right, #72CCE8,#CE89FB) !important;
+    border: none !important;
+    color: #FFFFFF;
+}
+.daterangepicker{
+    background-color: rgba(47, 64, 80, 1) !important;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover{
+    background-color: rgba(47, 64, 80, 1) !important;
+}
+.daterangepicker td.in-range{
+    background-color: #72CCE8 !important;
+}
+.multiselect-parent.btn-group.dropdown-multiselect {
+    width: 100%;
+}
+.multiselect-parent.btn-group.dropdown-multiselect button {
+    width:100%;
+    font-size: 14px;
+    color: #333;
+    border-radius: 1px;
+    background-color: white !important;
+    padding: 6px 12px;
+    text-align: left;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: all .15s;
+    -o-transition: all .15s;
+    transition: all .15s;
+    height: 34px !important;
+}
+
+
+/*custom radio button css start*/
+/* The container */
+.cust-radio {
+    display: block;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: normal;
+    line-height: 18px;
+    margin-right: 20px;
+}
+
+/* Hide the browser's default radio button */
+.cust-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.cust-radio .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:18px;
+    width:18px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+.cust-radio:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+
+.cust-radio input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+
+.cust-radio .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+.cust-radio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+
+.cust-radio .checkmark:after {
+    top: 6px;
+    left: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+}
+
+label.cust-radio {
+    display: inline-block;
+    margin-bottom:15px; 
+}
+/*custom radio button css end*/
+
+.existing-view ul li img {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 100%;
+    margin-right: 20px;
+    float: left;
+
+}
+
+.existing-view ul li {
+    list-style-type: none;
+    margin-bottom: 25px;
+
+    float: left;
+    width: 100%;
+}
+.existing-view ul li span{float:left;}
+
+.marginB30{margin-bottom:30px; }
+.faIcon{
+    color:#CE89FB !important;
+}
+.faIconcolor{
+    color:#000000cc !important;
+}
+
+.div-style{
+    border: 1px solid #e7eaec;
+}
+
+.chatPic{
+    width: 32px;
+    height: 33px;
+    border-radius: 100%;
+}
